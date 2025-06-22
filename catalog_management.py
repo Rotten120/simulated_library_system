@@ -1,4 +1,3 @@
-import os
 from catalog import *
 
 class CatMgr:    
@@ -38,3 +37,11 @@ class CatMgr:
         else:
             print("Catalog ID does not exist")
 
+    def search(self, key, prompt):
+        no_results = True
+        for cat_id in self.catalogs:
+            if self.catalogs[cat_id].parse[key] == prompt:
+                no_results = False
+                self.catalogs[cat_id].print()
+        if no_results:
+            print("No catalog matches the prompt in", key)

@@ -32,7 +32,7 @@ class Catalog:
 
     def write(self):
         file = open(self.__path, 'w')
-        file.write(json.dumps(self.__parse()))
+        file.write(json.dumps(self.parse()))
         file.close()
 
     def rmv(self):
@@ -43,8 +43,8 @@ class Catalog:
 
     def get_path(self):
         return self.__path
-        
-    def __parse(self):
+    
+    def parse(self):
         return {
             "id": self.id,
             "title": self.title,
@@ -54,6 +54,6 @@ class Catalog:
         }
     
     def print(self):
-        data = self.__parse()
+        data = self.parse()
         data["path"] = self.__path
         print(data)
