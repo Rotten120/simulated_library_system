@@ -32,4 +32,7 @@ class User(Item):
         print("Password:\t\t", '*' * len(self.__password))
         print("Borrowing Privileges:\t", self.privilege)
 
+    def password_check(password):
+        return self.__password == password
+
 
