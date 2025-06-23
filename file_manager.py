@@ -24,8 +24,7 @@ class FileManager(ABC):
         else:
             print("Item ID already exists in directory")
 
-    def edit(self, data):
-        item_id = data["id"]
+    def edit(self, item_id, data):
         if item_id in self.items:
             self.items[item_id].edit(data)
         else:
@@ -39,13 +38,16 @@ class FileManager(ABC):
             print("Item ID does not exists in directory")
 
     def search(self, key, prompt):
-        no_results = True
+        results = {}
         for item_id in self.items:
             if self.items[item_id].parse()[key] == prompt:
-                no_results = False
-                self.items[item_id].print()
-        if no_results:
-            print("No item matches the prompt inputted for", key)
+                results[item_id] = self.items[item_id]
+        return results
+
+    def print(self):
+        for item_id in self.items:
+            print(end = "\n\n")
+            self.items[item_id].print()
 
     @abstractmethod
     def import_item(self, file_path):
