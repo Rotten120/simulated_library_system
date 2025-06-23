@@ -17,13 +17,15 @@ class Acc(Item):
             self.username = data["username"]
             self.__password = data["password"]
             self.privilege = data["privilege"]
+            self.transacts = data["transacts"]
     
     def parse(self):
         return {
             "id": self.id,
             "username": self.username,
             "password": self.__password,
-            "privilege": self.privilege
+            "privilege": self.privilege,
+            "transacts": self.transacts
         }
 
     def print(self):
@@ -31,6 +33,10 @@ class Acc(Item):
         print("Username:\t\t", self.username)
         print("Password:\t\t", '*' * len(self.__password))
         print("Borrowing Privileges:\t", self.privilege)
+        print("Transaction IDs")
+
+        for transact in self.transacts:
+            print(" ", transact)
 
     def password_check(self, password):
         return self.__password == password
