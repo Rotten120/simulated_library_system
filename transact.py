@@ -23,6 +23,7 @@ class Transaction(Item):
 
     def parse(self):
         return {
+            "id": self.id,
             "borrower": self.borrower,
             "catalog": self.catalog,
             "borrow date": self.borrow_date,
@@ -32,7 +33,8 @@ class Transaction(Item):
     def print(self, dirs):
         catalog = Catalog.imp(dirs["catalog"] + '\\' + str(self.catalog) + ".txt")
         account = Acc.imp(dirs["account"] + '\\' + str(self.borrower) + ".txt")
-        
+
+        print("Id:", self.id)
         print("Borrower:", account.username)
         print("Catalog:", catalog.title)
         print("Borrow Date", self.borrow_date)
