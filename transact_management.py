@@ -5,27 +5,28 @@ from file_manager import FileManager
 class TransactMgr(FileManager):
     def add(self, data, directory):
         transact_id = super().add(data)
-        
-        acc_path = directory + '\\' + str(data["borrower"]) + ".txt"
-        acc = Acc.imp(acc_path)
-
-        data = acc.parse()
-        data["transacts"].append(transact_id)
-        acc.edit(data)
-        acc.write()
-        
+        acc_path = Acc.create_path(directory, data["borrower"])
+        self.__add_acc_transact(acc_path)
         return transact_id
 
     def remove(self, item_id, directory):
         acc_id = self.items[item_id].borrower
         if super().remove(item_id):
-            acc_path = directory + '\\' + str(acc_id) + ".txt"
-            acc = Acc.imp(acc_path)
-            acc.transacts.remove(item_id)
-            acc.write()
+            acc_path = Acc.create_path(directory, acc_id)
+            self.__rmv_acc_transact(acc_path)
             return True
 
         return False
+
+    def __add_acc_transact(self, acc_path):
+        acc = Acc.imp(acc_path)
+        acc.transacts.append(transact_id)
+        acc.write()
+
+    def __rmv_acc_transact(self, acc_path):
+        acc = Acc.imp(acc_path)
+        acc.transacts.remove(item_id)
+        acc.write()
 
     def print(self, dirs):
         for item_id in self.items:
