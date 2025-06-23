@@ -1,4 +1,4 @@
-from user import User
+from account import Acc
 from file_manager import FileManager
 
 class UserMgr(FileManager):
@@ -36,7 +36,7 @@ class UserMgr(FileManager):
             print("Wrong password")
     
     def import_item(self, file_path):
-        return User.imp(file_path)
+        return Acc.imp(file_path)
 
     def create_item(self, data):
-        return User(data, self.dir)
+        return Acc(data, self.dir)

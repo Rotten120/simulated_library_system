@@ -1,7 +1,7 @@
 from item import Item
 import json
 
-class User(Item):
+class Acc(Item):
     def imp(file_path):
         file = open(file_path, 'r')
         data = json.loads(file.read())
@@ -32,7 +32,7 @@ class User(Item):
         print("Password:\t\t", '*' * len(self.__password))
         print("Borrowing Privileges:\t", self.privilege)
 
-    def password_check(password):
+    def password_check(self, password):
         return self.__password == password
 
 
