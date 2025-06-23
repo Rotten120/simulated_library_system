@@ -16,6 +16,8 @@ class Item(ABC):
     def rmv(self):
         if os.path.isfile(self.__path):
             os.remove(self.__path)
+            return True
+        return False
 
     def get_path(self):
         return self.__path
