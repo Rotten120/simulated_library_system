@@ -19,7 +19,9 @@ class AccMgr(FileManager):
 
         item = self.items[item_id]
         if item.password_check(password):
-            return item.edit(data)
+            val = item.edit(data)
+            item.write()
+            return val
         
         print("Wrong password")
         return False
