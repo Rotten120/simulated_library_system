@@ -22,6 +22,9 @@ class Item(ABC):
     def get_path(self):
         return self.__path
 
+    def create_path(directory, item_id):
+        return directory + '\\' + str(item_id) + ".txt"
+
     @abstractmethod
     def imp(file_path):
         pass
