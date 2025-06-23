@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import random
 import os
 
 class FileManager(ABC):
@@ -16,26 +17,34 @@ class FileManager(ABC):
 
     def add(self, data):
         item_id = data["id"]
-        item = self.create_item(data)
 
-        if not(item_id in self.items):
-            item.write()
-            self.items[item_id] = item
-        else:
-            print("Item ID already exists in directory")
+        while item_id in self.items:
+            item_id = random.randrange(0, 999999)
+
+        data["id"] = item_id
+        
+        item = self.create_item(data)
+        item.write()
+        
+        self.items[item_id] = item
+        return True
 
     def edit(self, item_id, data):
         if item_id in self.items:
             self.items[item_id].edit(data)
-        else:
-            print("Item ID does not exists in directory")
+            return True
+
+        print("Item ID does not exists in directory")
+        return False
 
     def remove(self, item_id):
         if item_id in self.items:
             self.items[item_id].rmv()
             del self.items[item_id]
-        else:
-            print("Item ID does not exists in directory")
+            return True
+
+        print("Item ID does not exists in directory")
+        return False
 
     def search(self, key, prompt):
         results = {}

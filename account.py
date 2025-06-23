@@ -7,10 +7,10 @@ class Acc(Item):
         data = json.loads(file.read())
 
         directory = file_path[:file_path.rfind('\\')]
-        user = User(data, directory)
+        acc = Acc(data, directory)
 
         file.close()
-        return user
+        return acc
 
     def edit(self, data):
         if self.id == data["id"]:
