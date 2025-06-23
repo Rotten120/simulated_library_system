@@ -8,7 +8,7 @@ directory = {
     "catalog": "catalog_lists"
 }
 
-class LibSys:
+class LibSysClient:
     def __init__(self, dirs):
         empty_data = {
             "id": 0,
@@ -69,23 +69,21 @@ class LibSys:
         self.login()
 
     def __get_privilege(self):
-        print("Choose Booking Privilege:")
-        print(" 1) Basic")
-        print(" 2) Student")
-        print(" 3) Instructor")
-        print(" 4) Staff")
+        print("Choose Borrowing Privilege:")
+        print(" 1) Basic\n 2) Student")
+        print(" 3) Instructor\n 4) Staff")
 
-        while True
-            priv = input("Choose: ")
-            if priv == "1":
-                return "Basic"
-            if priv == "2":
-                return "Student"
-            if priv == "3":
-                return "Instructor"
-            if priv == "4":
-                return "Staff"
-            
+        privs = [
+            "Basic", "Student",
+            "Instructor", "Staff"
+        ]
+        
+        while True:
+            try:
+                priv = int(input("Choose: "))
+                return privs[priv - 1]
+            except:
+                continue            
         return "Basic"
 
 

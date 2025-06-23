@@ -33,7 +33,3 @@ class Item(ABC):
     @abstractmethod
     def parse(self):
         pass
-
-    @abstractmethod
-    def print(self):
-        pass
