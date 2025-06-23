@@ -17,9 +17,9 @@ class LibSys:
             "privilege": ""
         }
 
-        self.catalogs = CatalogMgr(dirs["catalog"])
-        self.accounts = AccMgr(dirs["account"])
-        self.logged = Acc(empty_data, "")
+        self.__catalogs = CatalogMgr(dirs["catalog"])
+        self.__accounts = AccMgr(dirs["account"])
+        self.__logged = Acc(empty_data, "")
 
     def login(self):
         while True:
@@ -27,7 +27,7 @@ class LibSys:
 
             username = input("Username: ")
             password = input("Password: ")
-            results = self.accounts.search("username", "Zedric")
+            results = self.__accounts.search("username", "Zedric")
 
             if len(results) != 1:
                 print("Username not found")
@@ -43,7 +43,7 @@ class LibSys:
                 #password matches
             
             print("Successfully logged in")
-            self.logged = result
+            self.__logged = result
             break
     
     def create_account(self):
@@ -54,7 +54,7 @@ class LibSys:
             
             username = input("Username: ")
             password = input("Password: ")
-            privilege = input("Borrowing Privileges: ")
+            privilege = self.__get_privilege()
 
             data = {
                 "id": random.randrange(0, 999999),
@@ -63,8 +63,30 @@ class LibSys:
                 "privilege": privilege
             }
 
-            username_exists = not self.accounts.add(data)
+            username_exists = not self.__accounts.add(data)
             
         print("Successfuly created account")
         self.login()
-                        
+
+    def __get_privilege(self):
+        print("Choose Booking Privilege:")
+        print(" 1) Basic")
+        print(" 2) Student")
+        print(" 3) Instructor")
+        print(" 4) Staff")
+
+        while True
+            priv = input("Choose: ")
+            if priv == "1":
+                return "Basic"
+            if priv == "2":
+                return "Student"
+            if priv == "3":
+                return "Instructor"
+            if priv == "4":
+                return "Staff"
+            
+        return "Basic"
+
+
+        
