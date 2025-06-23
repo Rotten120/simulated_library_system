@@ -27,11 +27,13 @@ class FileManager(ABC):
         item.write()
         
         self.items[item_id] = item
-        return True
+        return item_id
 
     def edit(self, item_id, data):
         if item_id in self.items:
-            self.items[item_id].edit(data)
+            item = self.items[item_id]
+            item.edit(data)
+            item.write()
             return True
 
         print("Item ID does not exists in directory")
