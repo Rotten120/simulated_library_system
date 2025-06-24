@@ -1,1 +1,0 @@
-{"id": 681165, "borrower": 74730, "catalog": 241021, "borrow date": "2025-06-24", "due date": "2025-07-24"}

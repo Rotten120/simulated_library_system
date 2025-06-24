@@ -1,1 +1,1 @@
-{"id": 74730, "username": "Zedric", "password": "secret", "privilege": "Student", "transacts": [681165, 366027]}
+{"id": 74730, "username": "Zedric", "password": "secret", "privilege": "Student", "transacts": []}

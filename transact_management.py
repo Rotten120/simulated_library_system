@@ -9,13 +9,13 @@ class TransactMgr(FileManager):
         
         transact_id = super().add(data)
         self.__add_acc_transact(acc, transact_id)
-        catalog.stock -= 1
+        self.__rmv_stock(catalog)
         return transact_id
     
     def remove(self, acc, catalog, transact_id):
         if super().remove(transact_id):
             self.__rmv_acc_transact(acc, transact_id)
-            catalog.stock += 1
+            self.__add_stock(catalog)
             return True
         return False
 
@@ -23,9 +23,17 @@ class TransactMgr(FileManager):
         acc.transacts.append(transact_id)
         acc.write()
 
+    def __add_stock(self, catalog):
+        catalog.stock += 1
+        catalog.write()
+
     def __rmv_acc_transact(self, acc, transact_id):
         acc.transacts.remove(transact_id)
         acc.write()
+
+    def __rmv_stock(self, catalog):
+        catalog.stock -= 1
+        catalog.write()
 
     def print(self, dirs):
         for item_id in self.items:
