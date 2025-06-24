@@ -3,9 +3,9 @@ from utils.get_date import Date
 import os
 
 directory = {
-    "account": "account_lists",
-    "catalog": "catalog_lists",
-    "transact": "transact_lists"
+    "account": "database\\account_lists",
+    "catalog": "database\\catalog_lists",
+    "transact": "database\\transact_lists"
 }
 
 class LibSysClient(LibSysClientUi):
