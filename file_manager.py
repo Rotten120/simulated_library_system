@@ -50,7 +50,9 @@ class FileManager(ABC):
             print(end = "\n\n")
             self.items[item_id].print()
 
-    def generate_id(self, item_id):
+    def generate_id(self, item_id = -1):
+        if item_id == -1:
+            item_id = random.randrange(0, 999999)
         while item_id in self.items:
             item_id = random.randrange(0, 999999)
         return item_id

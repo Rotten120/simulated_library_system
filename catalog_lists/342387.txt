@@ -1,0 +1,1 @@
+{"id": 342387, "title": "Cats and Dogs", "author": "James Neil", "genre": "Novel", "reference": "https://novelty.com/cats_and_dogs"}
