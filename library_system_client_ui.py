@@ -11,10 +11,13 @@ class LibSysClientUi:
         self._transacts = TransactMgr(dirs["transact"])
 
     def start_ui(self):
-        print("LIBRARY SYSTEM")
-        print(" 1) Login")
-        print(" 2) Sign up")
-        print(" 3) Exit")
+        print('_' * 55)
+        print("LIBRARY SYSTEM".center(55), end = "\n\n")
+        print()
+        print("(1) Login", end = "\n\n")
+        print("(2) Sign up", end = "\n\n")
+        print("(3) Exit", end = "\n\n")
+        print('_' * 55)
 
         while True:
             choose = input("Choose: ")
@@ -22,10 +25,13 @@ class LibSysClientUi:
                 return choose
 
     def menu_ui(self):
-        print("MENU")
-        print(" 1) Borrow Catalogs")
-        print(" 2) Return Catalogs")
-        print(" 3) Log out")
+        print('_' * 55)
+        print("MENU".center(55))
+        print()
+        print(" 1) Borrow Catalogs", end = "\n\n")
+        print(" 2) Return Catalogs", end = "\n\n")
+        print(" 3) Log out", end = "\n\n")
+        print('_' * 55)
 
         while True:
             choose = input("Choose: ")
@@ -33,32 +39,39 @@ class LibSysClientUi:
                 return choose
     
     def login_ui(self):
-        print("Login")
+        print('_' * 55)
+        print("Login".center(55), end = "\n\n")
+        print()
         data = {
             "username": input("Username: "),
             "password": input("Password: ")
         }
+        print('_' * 55)
         return data
 
     def sign_up_ui(self):
-        print("Sign up")
+        print('_' * 55)
+        print("Sign up".center(55))
+        print()
         data = {
             "username": input("Username: "),
             "password": input("Password: "),
             "privilege": self.__get_privilege()
         }
+        print('_' * 55)
         return data
 
     def borrow_catalogs_ui(self):
         table = "{:<6} {:<20} {:<15} {:<10} {:<6} {:<20}"
         header = ["ID", "TITLE", "AUTHOR", "GENRE", "STOCKS", "REFERENCES"]
-        print(table.format(*header))
+        print(table.format(*header), end = "\n\n")
 
         for catalog_id in self._catalogs.items:
             catalog = self._catalogs.items[catalog_id]
             data = list(catalog.parse().values())
-            print(table.format(*data))
-
+            print(table.format(*data), end = "\n\n")
+        print('_' * 85)
+        
     def _borrow_get_input(self):
         while True:
             try:
@@ -72,7 +85,7 @@ class LibSysClientUi:
     def transaction_details_ui(self, transact_ids):
         table = "{:<6} {:<20} {:<15} {:<15} {:<15}"
         header = ["ID", "TITLE", "AUTHOR", "BORROWED DATE", "DUE DATE"]
-        print(table.format(*header))
+        print(table.format(*header), end = "\n\n")
 
         for transact_id in transact_ids:
             transact = self._transacts.search("id", transact_id)[0]
@@ -83,7 +96,8 @@ class LibSysClientUi:
                 transact.borrow_date, transact.due_date
             ]
 
-            print(table.format(*data))
+            print(table.format(*data), end = "\n\n")
+        print('_' * 85)
 
     def _return_catalogs_ui(self):
         while True:
