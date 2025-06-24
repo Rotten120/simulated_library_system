@@ -1,1 +1,1 @@
-{"id": 241021, "title": "How to Basics", "author": "Zedric", "genre": "Comedy", "stock": 3, "reference": "https://www.ebooks.com/How_to_Basics"}
+{"id": 241021, "title": "How to Basics", "author": "Zedric", "genre": "Comedy", "stock": 2, "reference": "https://www.ebooks.com/How_to_Basics"}
