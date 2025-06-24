@@ -14,10 +14,11 @@ class LibSysClientUi:
         print("LIBRARY SYSTEM")
         print(" 1) Login")
         print(" 2) Sign up")
+        print(" 3) Exit")
 
         while True:
             choose = input("Choose: ")
-            if choose in ["1", "2"]:
+            if choose in ["1", "2", "3"]:
                 return choose
 
     def menu_ui(self):
@@ -49,8 +50,8 @@ class LibSysClientUi:
         return data
 
     def borrow_catalogs_ui(self):
-        table = "{:<6} {:<20} {:<15} {:<10} {:<20}"
-        header = ["ID", "TITLE", "AUTHOR", "GENRE", "REFERENCES"]
+        table = "{:<6} {:<20} {:<15} {:<10} {:<6} {:<20}"
+        header = ["ID", "TITLE", "AUTHOR", "GENRE", "STOCKS", "REFERENCES"]
         print(table.format(*header))
 
         for catalog_id in self._catalogs.items:
@@ -70,7 +71,7 @@ class LibSysClientUi:
 
     def transaction_details_ui(self, transact_ids):
         table = "{:<6} {:<20} {:<15} {:<15} {:<15}"
-        header = ["ID", "TITLE", "AUTHOR", "BORROWED DATA", "DUE DATE"]
+        header = ["ID", "TITLE", "AUTHOR", "BORROWED DATE", "DUE DATE"]
         print(table.format(*header))
 
         for transact_id in transact_ids:
