@@ -1,1 +1,1 @@
-{"id": 964848, "title": "Lemons", "author": "Kenshi Yonezu", "genre": "Romance", "reference": "https://jcatalogs.com/lemons"}
+{"id": 964848, "title": "Lemons", "author": "Kenshi Yonezu", "genre": "Romance", "stock": 2, "reference": "https://jcatalogs.com/lemons"}

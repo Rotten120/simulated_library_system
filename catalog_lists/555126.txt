@@ -1,1 +1,1 @@
-{"id": 555126, "title": "Basics of Assembly", "author": "Arthur Kent", "genre": "Coding", "reference": "https://books.com/011204"}
+{"id": 555126, "title": "Basics of Assembly", "author": "Arthur Kent", "genre": "Coding", "stock": 4, "reference": "https://books.com/011204"}

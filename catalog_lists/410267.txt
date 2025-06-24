@@ -1,1 +1,1 @@
-{"id": 410267, "title": "Art of Hacking", "author": "Baiza", "genre": "Coding", "reference": "https://www.ebooks.com/Art_of_Hacking"}
+{"id": 410267, "title": "Art of Hacking", "author": "Baiza", "genre": "Coding", "stock": 1, "reference": "https://www.ebooks.com/Art_of_Hacking"}

@@ -27,6 +27,8 @@ class LibSysClient(LibSysClientUi):
             self.login()
         if choose == "2":
             self.sign_up()
+        if choose == "3":
+            quit()
 
     def menu(self):
         os.system('cls')
@@ -78,11 +80,10 @@ class LibSysClient(LibSysClientUi):
             os.system('cls')
             self.borrow_catalogs_ui()
             catalog_id = self._borrow_get_input()
-            catalogs = self._catalogs.search("id", catalog_id)
-            if len(catalogs) == 0:
+            if not self._catalogs.id_exists(catalog_id):
                 continue
-            catalog = catalogs[0]
 
+            catalog = self._catalogs.items[catalog_id]
             data = {
                 "id": random.randrange(0, 999999),
                 "borrower": self.__logged.id,
@@ -90,9 +91,10 @@ class LibSysClient(LibSysClientUi):
                 "borrow date": Date.today(),
                 "due date": Date.next_month()
             }
-            
-            transact_id = self._transacts.add(data, self._accounts.dir)
-            self.__logged.transacts.append(transact_id)
+
+            transact_id = self._transacts.add(self.__logged, catalog, data)
+            if transact_id == -1:
+                continue
         self.menu()
 
     def return_catalogs(self):
@@ -102,13 +104,12 @@ class LibSysClient(LibSysClientUi):
             os.system('cls')
             self.transaction_details_ui(self.__logged.transacts)
             transact_id = self._return_catalogs_ui()
-            transacts = self._transacts.search("id", transact_id)
-            if len(transacts) == 0:
+            if not self._transacts.id_exists(transact_id):
                 continue
-            
-            directory = self._accounts.dir
-            self._transacts.remove(transact_id, directory)
-            self.__logged.transacts.remove(transact_id)
+
+            transaction = self._transacts.items[transact_id]
+            catalog = self._catalogs.items[transaction.catalog]
+            self._transacts.remove(self.__logged, catalog, transact_id)
         self.menu()
 
 if __name__ == "__main__":

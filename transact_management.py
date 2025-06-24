@@ -3,28 +3,27 @@ from account import Acc
 from file_manager import FileManager
 
 class TransactMgr(FileManager):
-    def add(self, data, directory):
+    def add(self, acc, catalog, data):
+        if catalog.stock <= 0:
+            return -1
+        
         transact_id = super().add(data)
-        acc_path = Acc.create_path(directory, data["borrower"])
-        self.__add_acc_transact(acc_path, transact_id)
+        self.__add_acc_transact(acc, transact_id)
+        catalog.stock -= 1
         return transact_id
-
-    def remove(self, transact_id, directory):
-        acc_id = self.items[transact_id].borrower
+    
+    def remove(self, acc, catalog, transact_id):
         if super().remove(transact_id):
-            acc_path = Acc.create_path(directory, acc_id)
-            self.__rmv_acc_transact(acc_path, transact_id)
+            self.__rmv_acc_transact(acc, transact_id)
+            catalog.stock += 1
             return True
-
         return False
 
-    def __add_acc_transact(self, acc_path, transact_id):
-        acc = Acc.imp(acc_path)
+    def __add_acc_transact(self, acc, transact_id):
         acc.transacts.append(transact_id)
         acc.write()
 
-    def __rmv_acc_transact(self, acc_path, transact_id):
-        acc = Acc.imp(acc_path)
+    def __rmv_acc_transact(self, acc, transact_id):
         acc.transacts.remove(transact_id)
         acc.write()
 

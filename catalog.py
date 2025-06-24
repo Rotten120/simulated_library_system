@@ -17,6 +17,7 @@ class Catalog(Item):
             self.title = data["title"]
             self.author = data["author"]
             self.genre = data["genre"]
+            self.stock = data["stock"]
             self.ref = data["reference"]
     
     def parse(self):
@@ -25,6 +26,7 @@ class Catalog(Item):
             "title": self.title,
             "author": self.author,
             "genre": self.genre,
+            "stock": self.stock,
             "reference": self.ref
         }
     
@@ -33,4 +35,5 @@ class Catalog(Item):
         print("Title:\t\t", self.title)
         print("Author:\t\t", self.author)
         print("Genre:\t\t", self.genre)
+        print("Stocks:\t\t", self.stock)
         print("Reference:\t", self.ref)
