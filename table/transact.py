@@ -1,6 +1,6 @@
-from catalog import Catalog
-from account import Acc
-from item import Item
+from table.catalog import Catalog
+from table.account import Acc
+from table.item import Item
 import json
 
 class Transaction(Item):

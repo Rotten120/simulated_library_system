@@ -1,5 +1,5 @@
-from account import Acc
-from file_manager import FileManager
+from table.account import Acc
+from table_manager.file_manager import FileManager
 
 class AccMgr(FileManager):
     def add(self, data):

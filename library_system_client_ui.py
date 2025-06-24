@@ -1,8 +1,8 @@
 import random
-from account import Acc
-from account_management import AccMgr
-from catalog_management import CatalogMgr
-from transact_management import TransactMgr
+from table.account import Acc
+from table_manager.account_management import AccMgr
+from table_manager.catalog_management import CatalogMgr
+from table_manager.transact_management import TransactMgr
 
 class LibSysClientUi:
     def __init__(self, dirs):

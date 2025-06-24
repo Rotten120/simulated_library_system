@@ -1,4 +1,4 @@
-from item import Item
+from table.item import Item
 import json
 
 class Catalog(Item):

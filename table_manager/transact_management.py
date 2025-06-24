@@ -1,6 +1,6 @@
-from transact import Transaction
-from account import Acc
-from file_manager import FileManager
+from table.transact import Transaction
+from table.account import Acc
+from table_manager.file_manager import FileManager
 
 class TransactMgr(FileManager):
     def add(self, acc, catalog, data):
