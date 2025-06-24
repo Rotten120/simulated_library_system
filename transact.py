@@ -31,8 +31,8 @@ class Transaction(Item):
         }
 
     def print(self, dirs):
-        catalog = Catalog.imp(dirs["catalog"] + '\\' + str(self.catalog) + ".txt")
-        account = Acc.imp(dirs["account"] + '\\' + str(self.borrower) + ".txt")
+        catalog = Catalog.create_path(dirs["catalog"], self.catalog)
+        account = Acc.create_path(dirs["account"], self.borrower)
 
         print("Id:", self.id)
         print("Borrower:", account.username)
