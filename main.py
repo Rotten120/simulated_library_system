@@ -1,90 +1,111 @@
-import random
-from account import Acc
-from account_management import AccMgr
-from catalog_management import CatalogMgr
+from library_system_client_ui import *
 
 directory = {
     "account": "account_lists",
-    "catalog": "catalog_lists"
+    "catalog": "catalog_lists",
+    "transact": "transact_lists"
 }
 
-class LibSysClient:
+class LibSysClient(LibSysClientUi):
     def __init__(self, dirs):
+        super().__init__(dirs)
         empty_data = {
             "id": 0,
             "username": "",
             "password": "",
-            "privilege": ""
+            "privilege": "",
+            "transacts": []
         }
-
-        self.__catalogs = CatalogMgr(dirs["catalog"])
-        self.__accounts = AccMgr(dirs["account"])
         self.__logged = Acc(empty_data, "")
+
+    def start(self):
+        choose = self.start_ui()
+
+        if choose == "1":
+            self.login()
+        if choose == "2":
+            self.sign_up()
+
+    def menu(self):
+        choose = self.menu_ui()
+
+        if choose == "1":
+            self.borrow_catalogs()
+        if choose == "2":
+            self.return_catalogs()
+        if choose == "3":
+            self.start()
 
     def login(self):
         while True:
-            print("Login")
-
-            username = input("Username: ")
-            password = input("Password: ")
-            results = self.__accounts.search("username", "Zedric")
+            data = self.login_ui()
+            if data["username"] == "-1":
+                self.start()
+            results = self._accounts.search("username", data["username"])
 
             if len(results) != 1:
                 print("Username not found")
                 continue
 
-            result = list(results.values())[0]
-            if not result.password_check(password):
+            result = results[0]
+            if not result.password_check(data["password"]):
                 print("Incorrect password")
                 continue
-                
-            #break is reached when
-                #username exists
-                #password matches
             
             print("Successfully logged in")
             self.__logged = result
-            break
+            self.menu()
+        
     
-    def create_account(self):
+    def sign_up(self):
         username_exists = True
 
         while username_exists:
-            print("Sign up")
+            data = self.sign_up_ui()
+            data["id"] = Acc.generate_id()
+            username_exists = not self._accounts.add(data)
             
-            username = input("Username: ")
-            password = input("Password: ")
-            privilege = self.__get_privilege()
+        print("Successfuly created account")
+        self.start()
+
+    def borrow_catalogs(self):
+        self.borrow_catalogs_ui()
+        catalog_id = 0
+
+        while catalog_id != -1:
+            catalog_id = self._borrow_get_input()
+            catalogs = self._catalogs.search("id", catalog_id)
+            if len(catalogs) == 0:
+                continue
+            catalog = catalogs[0]
 
             data = {
                 "id": random.randrange(0, 999999),
-                "username": username,
-                "password": password,
-                "privilege": privilege
+                "borrower": self.__logged.id,
+                "catalog": catalog.id,
+                "borrow date": "today",
+                "due date": "next month"
             }
-
-            username_exists = not self.__accounts.add(data)
             
-        print("Successfuly created account")
-        self.login()
+            transact_id = self._transacts.add(data, self._accounts.dir)
+            self.__logged.transacts.append(transact_id)
+        self.menu()
 
-    def __get_privilege(self):
-        print("Choose Borrowing Privilege:")
-        print(" 1) Basic\n 2) Student")
-        print(" 3) Instructor\n 4) Staff")
+    def return_catalogs(self):
+        transact_id = 0
 
-        privs = [
-            "Basic", "Student",
-            "Instructor", "Staff"
-        ]
-        
-        while True:
-            try:
-                priv = int(input("Choose: "))
-                return privs[priv - 1]
-            except:
-                continue            
-        return "Basic"
+        while transact_id != -1:
+            self.transaction_details_ui(self.__logged.transacts)
+            transact_id = self._return_catalogs_ui()
+            transacts = self._transacts.search("id", transact_id)
+            if len(transacts) == 0:
+                continue
+            
+            directory = self._accounts.dir
+            self._transacts.remove(transact_id, directory)
+            self.__logged.transacts.remove(transact_id)
+        self.menu()
 
-
-        
+if __name__ == "__main__":
+    library = LibSysClient(directory)
+    library.start()
