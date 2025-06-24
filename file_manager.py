@@ -45,6 +45,9 @@ class FileManager(ABC):
                 results.append(self.items[item_id])
         return results
 
+    def id_exists(self, item_id):
+        return (item_id in self.items)
+
     def print(self):
         for item_id in self.items:
             print(end = "\n\n")
