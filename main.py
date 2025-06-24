@@ -1,4 +1,6 @@
 from library_system_client_ui import *
+from get_date import Date
+import os
 
 directory = {
     "account": "account_lists",
@@ -19,16 +21,16 @@ class LibSysClient(LibSysClientUi):
         self.__logged = Acc(empty_data, "")
 
     def start(self):
+        os.system('cls')
         choose = self.start_ui()
-
         if choose == "1":
             self.login()
         if choose == "2":
             self.sign_up()
 
     def menu(self):
+        os.system('cls')
         choose = self.menu_ui()
-
         if choose == "1":
             self.borrow_catalogs()
         if choose == "2":
@@ -38,6 +40,7 @@ class LibSysClient(LibSysClientUi):
 
     def login(self):
         while True:
+            os.system('cls')
             data = self.login_ui()
             if data["username"] == "-1":
                 self.start()
@@ -61,18 +64,19 @@ class LibSysClient(LibSysClientUi):
         username_exists = True
 
         while username_exists:
+            os.system('cls')
             data = self.sign_up_ui()
-            data["id"] = Acc.generate_id()
+            data["id"] = random.randrange(0, 999999)
+            data["transacts"] = []
             username_exists = not self._accounts.add(data)
-            
-        print("Successfuly created account")
         self.start()
 
     def borrow_catalogs(self):
-        self.borrow_catalogs_ui()
         catalog_id = 0
 
         while catalog_id != -1:
+            os.system('cls')
+            self.borrow_catalogs_ui()
             catalog_id = self._borrow_get_input()
             catalogs = self._catalogs.search("id", catalog_id)
             if len(catalogs) == 0:
@@ -83,8 +87,8 @@ class LibSysClient(LibSysClientUi):
                 "id": random.randrange(0, 999999),
                 "borrower": self.__logged.id,
                 "catalog": catalog.id,
-                "borrow date": "today",
-                "due date": "next month"
+                "borrow date": Date.today(),
+                "due date": Date.next_month()
             }
             
             transact_id = self._transacts.add(data, self._accounts.dir)
@@ -95,6 +99,7 @@ class LibSysClient(LibSysClientUi):
         transact_id = 0
 
         while transact_id != -1:
+            os.system('cls')
             self.transaction_details_ui(self.__logged.transacts)
             transact_id = self._return_catalogs_ui()
             transacts = self._transacts.search("id", transact_id)
