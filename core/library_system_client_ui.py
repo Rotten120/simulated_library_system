@@ -1,14 +1,11 @@
+from core.base_imports import *
 import random
-from table.account import Acc
-from table_manager.account_management import AccMgr
-from table_manager.catalog_management import CatalogMgr
-from table_manager.transact_management import TransactMgr
 
 class LibSysClientUi:
     def __init__(self, dirs):
-        self._catalogs = CatalogMgr(dirs["catalog"])
-        self._accounts = AccMgr(dirs["account"])
-        self._transacts = TransactMgr(dirs["transact"])
+        self._catalogs = CatalogManager(Catalog, dirs["catalog"])
+        self._accounts = AccountManager(Account, dirs["account"])
+        self._transacts = TransactManager(Transaction, dirs["transact"])
 
     def start_ui(self):
         print('_' * 55)
@@ -66,8 +63,8 @@ class LibSysClientUi:
         header = ["ID", "TITLE", "AUTHOR", "GENRE", "STOCKS", "REFERENCES"]
         print(table.format(*header), end = "\n\n")
 
-        for catalog_id in self._catalogs.items:
-            catalog = self._catalogs.items[catalog_id]
+        for cid in self._catalogs.tables:
+            catalog = self._catalogs.tables[cid]
             data = list(catalog.parse().values())
             print(table.format(*data), end = "\n\n")
         print('_' * 85)
@@ -75,20 +72,19 @@ class LibSysClientUi:
     def _borrow_get_input(self):
         while True:
             try:
-                catalog_id = int(input("Input catalog ID to borrow: "))
+                cid = int(input("Input catalog ID to borrow: "))
             except:
                 continue
             break
-        return catalog_id
+        return cid
 
-
-    def transaction_details_ui(self, transact_ids):
+    def transaction_details_ui(self, trids):
         table = "{:<6} {:<20} {:<15} {:<15} {:<15}"
         header = ["ID", "TITLE", "AUTHOR", "BORROWED DATE", "DUE DATE"]
         print(table.format(*header), end = "\n\n")
 
-        for transact_id in transact_ids:
-            transact = self._transacts.search("id", transact_id)[0]
+        for trid in trids:
+            transact = self._transacts.search("id", trid)[0]
             catalog = self._catalogs.search("id", transact.catalog)[0]
 
             data = [
@@ -102,11 +98,11 @@ class LibSysClientUi:
     def _return_catalogs_ui(self):
         while True:
             try:
-                transact_id = int(input("Input transact ID to return: "))
+                tid = int(input("Input transact ID to return: "))
             except:
                 continue
             break
-        return transact_id
+        return tid
     
     def __get_privilege(self):
         print("Choose Borrowing Privilege:")

@@ -1,23 +1,25 @@
-from table.item import Item
+from table.table import Table
 import json
 
-class Acc(Item):
+class Account(Table):
     def imp(file_path):
         file = open(file_path, 'r')
         data = json.loads(file.read())
 
         directory = file_path[:file_path.rfind('\\')]
-        acc = Acc(data, directory)
+        acc = Account(data, directory)
 
         file.close()
         return acc
 
     def edit(self, data):
-        if self.id == data["id"]:
-            self.username = data["username"]
-            self.__password = data["password"]
-            self.privilege = data["privilege"]
-            self.transacts = data["transacts"]
+        if self.id != data["id"]:
+            return False
+        self.username = data["username"]
+        self.__password = data["password"]
+        self.privilege = data["privilege"]
+        self.transacts = data["transacts"]
+        return False
     
     def parse(self):
         return {

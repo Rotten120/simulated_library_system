@@ -1,7 +1,7 @@
-from table.item import Item
+from table.table import Table
 import json
 
-class Catalog(Item):
+class Catalog(Table):
     def imp(file_path):
         file = open(file_path, 'r')
         data = json.loads(file.read())

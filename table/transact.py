@@ -1,9 +1,7 @@
-from table.catalog import Catalog
-from table.account import Acc
-from table.item import Item
+from table.table import Table
 import json
 
-class Transaction(Item):
+class Transaction(Table):
     def imp(file_path):
         file = open(file_path, 'r')
         data = json.loads(file.read())
@@ -31,8 +29,8 @@ class Transaction(Item):
         }
 
     def print(self, dirs):
-        catalog = Catalog.create_path(dirs["catalog"], self.catalog)
-        account = Acc.create_path(dirs["account"], self.borrower)
+        catalog = Table.create_path(dirs["catalog"], self.catalog)
+        account = Table.create_path(dirs["account"], self.borrower)
 
         print("Id:", self.id)
         print("Borrower:", account.username)

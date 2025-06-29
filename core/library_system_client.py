@@ -12,7 +12,7 @@ class LibSysClient(LibSysClientUi):
             "privilege": "",
             "transacts": []
         }
-        self.__logged = Acc(empty_data, "")
+        self.__logged = Account(empty_data, "")
 
     def start(self):
         os.system('cls')
@@ -43,15 +43,12 @@ class LibSysClient(LibSysClientUi):
             results = self._accounts.search("username", data["username"])
 
             if len(results) != 1:
-                print("Username not found")
                 continue
 
             result = results[0]
             if not result.password_check(data["password"]):
-                print("Incorrect password")
                 continue
             
-            print("Successfully logged in")
             self.__logged = result
             self.menu()
         
@@ -68,16 +65,17 @@ class LibSysClient(LibSysClientUi):
         self.start()
 
     def borrow_catalogs(self):
-        catalog_id = 0
+        cid = 0
 
-        while catalog_id != -1:
+        while cid != -1:
             os.system('cls')
             self.borrow_catalogs_ui()
-            catalog_id = self._borrow_get_input()
-            if not self._catalogs.id_exists(catalog_id):
+            cid = self._borrow_get_input()
+            print(self._catalogs.valid_id(cid), cid)
+            if self._catalogs.valid_id(cid) or cid == -1:
                 continue
 
-            catalog = self._catalogs.items[catalog_id]
+            catalog = self._catalogs.tables[cid]
             data = {
                 "id": random.randrange(0, 999999),
                 "borrower": self.__logged.id,
@@ -86,22 +84,22 @@ class LibSysClient(LibSysClientUi):
                 "due date": Date.next_month()
             }
 
-            transact_id = self._transacts.add(self.__logged, catalog, data)
-            if transact_id == -1:
+            trid = self._transacts.add(self.__logged, catalog, data)
+            if trid == -1:
                 continue
         self.menu()
 
     def return_catalogs(self):
-        transact_id = 0
+        trid = 0
 
-        while transact_id != -1:
+        while trid != -1:
             os.system('cls')
             self.transaction_details_ui(self.__logged.transacts)
-            transact_id = self._return_catalogs_ui()
-            if not self._transacts.id_exists(transact_id):
+            trid = self._return_catalogs_ui()
+            if self._transacts.valid_id(trid) or trid == -1:
                 continue
 
-            transaction = self._transacts.items[transact_id]
-            catalog = self._catalogs.items[transaction.catalog]
-            self._transacts.remove(self.__logged, catalog, transact_id)
+            transaction = self._transacts.tables[trid]
+            catalog = self._catalogs.tables[transaction.catalog]
+            self._transacts.remove(self.__logged, catalog, trid)
         self.menu()

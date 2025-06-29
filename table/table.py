@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import json
 import os
 
-class Item(ABC):
+class Table(ABC):
     def __init__(self, data, directory):
         self.id = data["id"]
         self.__path = directory + "\\" + str(self.id) + ".txt"
@@ -22,6 +22,7 @@ class Item(ABC):
     def get_path(self):
         return self.__path
 
+    @staticmethod
     def create_path(directory, item_id):
         return directory + '\\' + str(item_id) + ".txt"
 
