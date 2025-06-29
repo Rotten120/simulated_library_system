@@ -6,6 +6,9 @@ directory = {
     "transact": "database\\transact_lists"
 }
 
-if __name__ == "__main__":
+def main():
     library = LibSysClient(directory)
     library.start()
+
+if __name__ == "__main__":
+    main()
