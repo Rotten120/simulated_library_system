@@ -113,11 +113,13 @@ class LibSysClientUi:
             "Basic", "Student",
             "Instructor", "Staff"
         ]
+
         
         while True:
             try:
                 choose = int(input("Choose: "))
                 return options[choose - 1]
             except:
-                continue            
+                continue
+        
         return "Basic"        
