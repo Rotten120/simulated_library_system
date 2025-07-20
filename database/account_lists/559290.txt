@@ -1,1 +1,0 @@
-{"id": 559290, "username": "asd", "password": "asd", "privilege": "Basic", "transacts": []}
