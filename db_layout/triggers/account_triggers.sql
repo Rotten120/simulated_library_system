@@ -6,4 +6,4 @@ BEGIN
 	DELETE FROM transacts
 	WHERE accountID = OLD.accountID;
 END
-// DELIMITER;
+// DELIMITER ;
