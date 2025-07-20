@@ -1,0 +1,9 @@
+DROP TRIGGER IF EXISTS rmvAccount;
+
+DELIMITER //
+CREATE TRIGGER rmvAccount BEFORE DELETE ON accounts FOR EACH ROW
+BEGIN
+	DELETE FROM transacts
+	WHERE accountID = OLD.accountID;
+END
+// DELIMITER;
