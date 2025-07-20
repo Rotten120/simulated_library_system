@@ -24,7 +24,7 @@ class LibSysUi:
         print("Signup")
         username = input("Username: ")
         passcode = input("Password: ")
-        privilege = ui.__get_privilege()
+        privilege = LibSysUi.__get_privilege()
         return (username, passcode, privilege)
 
     def __get_privilege():

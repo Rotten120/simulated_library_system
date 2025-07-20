@@ -18,10 +18,14 @@ class LibSys:
         self.__cursor.execute(query, params)
         return self.__cursor.fetchall()
 
+    def __set(self, query, params):
+        self.__cursor.execute(query, params)
+        self.__conn.commit()
+
     def main(self):
         os.system('cls')
         choose = ui.main()
-        funcs = [self.login, self.signup, quit]
+        funcs = [self.login, self.signup, self.exit]
         funcs[choose]()
 
     def login(self):
@@ -47,11 +51,20 @@ class LibSys:
         while True:
             os.system('cls')
             log = ui.signup()
-            query = "INSERT INTO accounts (username, passcode, privilege)\
-                     VALUES (%s, %s, %s);"
+            query = "INSERT INTO accounts (username, passcode, privilege) VALUES (%s, %s, %s);"
 
             try:
-                self.__cursor.execute(query, log)
+                self.__set(query, log)
+                break
             except mysql.connector.errors.IntegrityError:
                 print("Username already exists, try another")
         self.main()
+
+    def exit(self):
+        self.__cursor.close()
+        self.__conn.close()
+        quit()
+
+if __name__ == "__main__":
+    library = LibSys()
+    library.main()
