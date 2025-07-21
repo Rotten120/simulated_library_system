@@ -1,6 +1,6 @@
 CREATE VIEW transactDetails AS
 SELECT
-	transactID AS 'Transaction ID',
+    transactID AS 'Transaction ID',
     accounts.username AS 'Username',
     catalogs.title AS 'Title',
     borrowStocks AS 'Copies Borrowed',
@@ -14,5 +14,5 @@ FROM transacts
 	INNER JOIN catalogs
 		ON transacts.catalogID = catalogs.catalogID
 ORDER BY
-	'Username',
+    'Username',
     'Borrow Date';

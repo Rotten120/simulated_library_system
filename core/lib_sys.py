@@ -14,11 +14,11 @@ class LibSys:
         self.__cursor = self.__conn.cursor()
         self.__logged = 0
 
-    def __get(self, query, params):
+    def __get(self, query, params = None):
         self.__cursor.execute(query, params)
         return self.__cursor.fetchall()
 
-    def __set(self, query, params):
+    def __set(self, query, params = None):
         self.__cursor.execute(query, params)
         self.__conn.commit()
 
@@ -45,7 +45,7 @@ class LibSys:
 
             query = "SELECT getAccountID(%s, %s);"
             self.__logged = self.__get(query, log)[0][0]
-        print(self.__logged)
+        self.menu()
 
     def signup(self):
         while True:
@@ -59,6 +59,25 @@ class LibSys:
             except mysql.connector.errors.IntegrityError:
                 print("Username already exists, try another")
         self.main()
+
+    def menu(self):
+        os.system('cls')
+        choose = ui.menu()
+        funcs = [self.borrow_cat, self.return_cat, self.main]
+        funcs[choose]()
+
+    def borrow_cat(self):
+        os.system('cls')
+        query = "SELECT * FROM catalogs;"
+        catalogs = self.__get(query)
+        ui.borrow_cat(catalogs)
+
+    def return_cat(self):
+        os.system('cls')
+        query = "CALL getAccTransact(%s)"
+        param = (self.__logged,)
+        transacts = self.__get(query, param)
+        ui.return_cat(transacts)
 
     def exit(self):
         self.__cursor.close()
