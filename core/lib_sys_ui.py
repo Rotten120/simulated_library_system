@@ -6,11 +6,9 @@ class LibSysUi:
         print("2 Signup")
         print("3 Exit")
 
-        choose = -1
-        while not(1 <= choose <= 3):
-            try: choose = int(input("Input: "))
-            except: continue
-        return choose - 1
+        try: choose = int(input("Input: ")) - 1
+        except: choose = -1
+        return choose
 
     @staticmethod
     def login():
@@ -34,11 +32,9 @@ class LibSysUi:
         print("2 Return Catalogs")
         print("3 Back to Main")
 
-        choose = -1
-        while not(1 <= choose <= 3):
-            try: choose = int(input("Input: "))
-            except: continue
-        return choose - 1
+        try: choose = int(input("Input: ")) - 1
+        except: choose = -1
+        return choose
 
     @staticmethod
     def borrow_cat(catalogs):
@@ -49,6 +45,10 @@ class LibSysUi:
         for catalog in catalogs:
             print(layout.format(*list(catalog)), end = "\n\n")
         print()
+
+        try: inp = int(input("Input: "))
+        except: inp = 0
+        return inp
 
     @staticmethod
     def return_cat(transacts):
@@ -62,6 +62,10 @@ class LibSysUi:
             li_transact[5] = LibSysUi.__print_date_time(li_transact[5])
             print(layout.format(*li_transact), end = "\n\n")
         print()
+
+        try: inp = int(input("Input: "))
+        except: inp = 0
+        return inp
 
     def __get_privilege():
         print("Choose Borrowing Privilege:")

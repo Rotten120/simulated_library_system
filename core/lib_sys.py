@@ -14,18 +14,29 @@ class LibSys:
         self.__cursor = self.__conn.cursor()
         self.__logged = 0
 
+    def __del__(self):
+        self.__cursor.close()
+        self.__conn.close()
+
     def __get(self, query, params = None):
         self.__cursor.execute(query, params)
         return self.__cursor.fetchall()
+
+    def __get_procedure(self, procedure, params = None):
+        self.__cursor.callproc(procedure, params)
+        return self.__cursor.stored_results()
 
     def __set(self, query, params = None):
         self.__cursor.execute(query, params)
         self.__conn.commit()
 
     def main(self):
-        os.system('cls')
-        choose = ui.main()
+        choose = -1
+        self.__logged = 0
         funcs = [self.login, self.signup, self.exit]
+        while not(0 <= choose <= 2):
+            os.system('cls')
+            choose = ui.main()
         funcs[choose]()
 
     def login(self):
@@ -61,23 +72,55 @@ class LibSys:
         self.main()
 
     def menu(self):
-        os.system('cls')
-        choose = ui.menu()
+        choose = -1
         funcs = [self.borrow_cat, self.return_cat, self.main]
+        while not(0 <= choose <= 2):
+            os.system('cls')
+            choose = ui.menu()
         funcs[choose]()
 
     def borrow_cat(self):
-        os.system('cls')
-        query = "SELECT * FROM catalogs;"
-        catalogs = self.__get(query)
-        ui.borrow_cat(catalogs)
+        inp = -1
+        while True:
+            os.system('cls')
+            query = "SELECT * FROM catalogs;"
+            catalogs = self.__get(query)
+            
+            inp = ui.borrow_cat(catalogs)
+            if inp == -1:
+                break
+
+            query = "INSERT INTO transacts (accountID, catalogID) VALUES (%s, %s);"
+            params = (self.__logged, inp)
+
+            try:
+                self.__set(query, params)
+                print("Catalog Borrowed!")
+            except mysql.connector.errors.IntegrityError:
+                print("Catalog does not exists")
+        self.menu()
 
     def return_cat(self):
-        os.system('cls')
-        query = "CALL getAccTransact(%s)"
-        param = (self.__logged,)
-        transacts = self.__get(query, param)
-        ui.return_cat(transacts)
+        inp = -1
+        while True:
+            os.system('cls')
+            procedure = "getAccTransact"
+            param = [self.__logged]
+            transacts = next(self.__get_procedure(procedure, param), None).fetchall()   #HEEHHHHH
+
+            inp = ui.return_cat(transacts)
+            if inp == -1:
+                break
+
+            query = "DELETE FROM transacts WHERE accountID = %s AND transactID = %s;"
+            params = (self.__logged, inp)
+
+            self.__set(query, params)
+            if self.__cursor.rowcount > 0:
+                print("Catalog Returned!")
+            else:
+                print("Transaction ID does not exist")
+        self.menu()
 
     def exit(self):
         self.__cursor.close()
@@ -86,4 +129,4 @@ class LibSys:
 
 if __name__ == "__main__":
     library = LibSys()
-    library.main()
+    library.menu()
