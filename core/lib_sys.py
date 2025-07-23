@@ -22,71 +22,72 @@ class LibSys:
         self.__cursor.execute(query, params)
         return self.__cursor.fetchall()
 
-    def __get_procedure(self, procedure, params = None):
-        self.__cursor.callproc(procedure, params)
-        return self.__cursor.stored_results()
-
     def __set(self, query, params = None):
         self.__cursor.execute(query, params)
         self.__conn.commit()
 
     def main(self):
         choose = -1
+        signal_id = 0
         self.__logged = 0
         funcs = [self.login, self.signup, self.exit]
         while not(0 <= choose <= 2):
             os.system('cls')
-            choose = ui.main()
+            choose = ui.main(signal_id)
+            signal_id = 1
         funcs[choose]()
 
     def login(self):
+        signal_id = 0
         while self.__logged <= 0:
             os.system('cls')
-            log = ui.login()
+            log = ui.login(signal_id)
             
             if log[0] == "-1":
                 self.main()
 
-            # ----------- Exceptions ----------- #
-            if self.__logged == -1:
-                print("Username does not exists")
-            if self.__logged == -2:
-                print("Incorrect Password")
-            # ---------------------------------- #
-
             query = "SELECT getAccountID(%s, %s);"
             self.__logged = self.__get(query, log)[0][0]
+
+            if self.__logged == -1:
+                signal_id = 2
+            if self.__logged == -2:
+                signal_id = 3
         self.menu()
 
     def signup(self):
+        signal_id = 0
         while True:
             os.system('cls')
-            log = ui.signup()
+            log = ui.signup(signal_id)
             query = "INSERT INTO accounts (username, passcode, privilege) VALUES (%s, %s, %s);"
 
             try:
                 self.__set(query, log)
                 break
             except mysql.connector.errors.IntegrityError:
-                print("Username already exists, try another")
+                signal_id = 4
         self.main()
 
     def menu(self):
         choose = -1
+        signal_id = 0
         funcs = [self.borrow_cat, self.return_cat, self.main]
         while not(0 <= choose <= 2):
             os.system('cls')
-            choose = ui.menu()
+            choose = ui.menu(signal_id)
+            signal_id = 1
         funcs[choose]()
 
     def borrow_cat(self):
         inp = -1
+        signal_id = 0
         while True:
             os.system('cls')
             query = "SELECT * FROM catalogs;"
             catalogs = self.__get(query)
             
-            inp = ui.borrow_cat(catalogs)
+            inp = ui.borrow_cat(signal_id, catalogs)
             if inp == -1:
                 break
 
@@ -95,20 +96,19 @@ class LibSys:
 
             try:
                 self.__set(query, params)
-                print("Catalog Borrowed!")
+                signal_id = 5
             except mysql.connector.errors.IntegrityError:
-                print("Catalog does not exists")
+                signal_id = 6
         self.menu()
 
     def return_cat(self):
         inp = -1
+        signal_id = 0
         while True:
             os.system('cls')
-            procedure = "getAccTransact"
-            param = [self.__logged]
-            transacts = next(self.__get_procedure(procedure, param), None).fetchall()   #HEEHHHHH
+            transacts = self.__get_acc_transacts()
 
-            inp = ui.return_cat(transacts)
+            inp = ui.return_cat(signal_id, transacts)
             if inp == -1:
                 break
 
@@ -117,10 +117,20 @@ class LibSys:
 
             self.__set(query, params)
             if self.__cursor.rowcount > 0:
-                print("Catalog Returned!")
+                signal_id = 7
             else:
-                print("Transaction ID does not exist")
+                signal_id = 8
         self.menu()
+
+    def __get_acc_transacts(self):
+        procedure = "getAccTransact"
+        param = [self.__logged]
+        
+        self.__cursor.callproc(procedure, param)
+        results = self.__cursor.stored_results()
+
+        transacts = next(results, None).fetchall()
+        return transacts
 
     def exit(self):
         self.__cursor.close()
@@ -129,4 +139,4 @@ class LibSys:
 
 if __name__ == "__main__":
     library = LibSys()
-    library.menu()
+    library.main()
