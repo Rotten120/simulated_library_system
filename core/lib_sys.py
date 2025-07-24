@@ -1,5 +1,6 @@
 from lib_sys_ui import LibSysUi as ui
 from filter_val import Filter
+from errors import *
 import mysql.connector
 import os
 
@@ -30,96 +31,116 @@ class LibSys:
 
     def main(self):
         choose = -1
+        log_msg = ""
         self.__logged = 0
         funcs = [self.login, self.signup, self.exit]
         while choose == -1:
             os.system('cls')
-            opt = ui.main()
-            choose = Filter.valid_option(opt, 0, 2)
+            try:
+                opt = int(ui.main(log_msg)) - 1
+                choose = Filter.valid_option(opt, 0, 2)
+            except ValueError:
+                log_msg = "Invalid input"
+            except OptionError as o:
+                log_msg = o
         funcs[choose]()
 
     def login(self):
-        signal_id = 0
+        log_msg = ""
         while self.__logged <= 0:
             os.system('cls')
-            log = ui.login(signal_id)
+            log = ui.login(log_msg)
             
             if log[0] == "-1":
                 self.main()
 
             query = "SELECT getAccountID(%s, %s);"
-            self.__logged = self.__get(query, log)[0][0]
-
-            if self.__logged == -1:
-                signal_id = 2
-            if self.__logged == -2:
-                signal_id = 3
+            
+            try:
+                self.__logged = self.__get(query, log)[0][0]
+            except mysql.connector.Error as e:
+                if e.errno == 50001:
+                    log_msg = "Username does not exist"
+                if e.errno == 50002:
+                    log_msg = "Incorrect Password"
+            else:
+                break
         self.menu()
 
     def signup(self):
-        signal_id = 0
+        log_msg = ""
         while True:
             os.system('cls')
-            log = ui.signup(signal_id)
+            log = ui.signup(log_msg)
             query = "INSERT INTO accounts (username, passcode, privilege) VALUES (%s, %s, %s);"
 
             try:
                 self.__set(query, log)
-                break
             except mysql.connector.errors.IntegrityError:
-                signal_id = 4
+                log_msg = "Username already exists"
+            else:
+                break
         self.main()
 
     def menu(self):
         choose = -1
+        log_msg = ""
         funcs = [self.borrow_cat, self.return_cat, self.main]
         while choose == -1:
             os.system('cls')
-            opt = ui.menu()
-            choose = Filter.valid_option(opt, 0, 2)
+            try:
+                opt = int(ui.menu(log_msg)) - 1
+                choose = Filter.valid_option(opt, 0, 2)
+            except ValueError:
+                log_msg = "Invalid input"
+            except OptionError as o:
+                log_msg = o
         funcs[choose]()
 
     def borrow_cat(self):
         inp = -1
-        signal_id = 0
+        log_msg = ""
         while True:
             os.system('cls')
             query = "SELECT * FROM catalogs;"
             catalogs = self.__get(query)
-            
-            inp = ui.borrow_cat(signal_id, catalogs)
-            if inp == -1:
-                break
 
             query = "INSERT INTO transacts (accountID, catalogID) VALUES (%s, %s);"
             params = (self.__logged, inp)
 
             try:
+                inp = int(ui.borrow_cat(log_msg, catalogs))
                 self.__set(query, params)
-                signal_id = 5
+                log_msg = "Catalog Borrowed!"
+            except ValueError:
+                log_msg = "Invalid input"
             except mysql.connector.errors.IntegrityError:
-                signal_id = 6
+                if inp == -1:
+                    break
+                log_msg = "Catalog does not exist"                
         self.menu()
 
     def return_cat(self):
         inp = -1
-        signal_id = 0
+        log_msg = ""
         while True:
             os.system('cls')
             transacts = self.__get_acc_transacts()
 
-            inp = ui.return_cat(signal_id, transacts)
-            if inp == -1:
-                break
-
             query = "DELETE FROM transacts WHERE accountID = %s AND transactID = %s;"
             params = (self.__logged, inp)
 
-            self.__set(query, params)
-            if self.__cursor.rowcount > 0:
-                signal_id = 7
-            else:
-                signal_id = 8
+            try:
+                inp = int(ui.return_cat(log_msg, transacts))
+                self.__set(query, params)
+                if self.__cursor.rowcount > 0:
+                    log_msg = "Catalog Returned!"
+                else:
+                    log_msg = "Transaction ID does not exist"
+                if inp == -1:
+                    break
+            except ValueError:
+                log_msg = "Invalid Input"
         self.menu()
 
     def __get_acc_transacts(self):

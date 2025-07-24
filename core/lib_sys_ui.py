@@ -2,27 +2,27 @@ from filter_val import Filter
 
 class LibSysUi:
     @staticmethod
-    def main():
+    def main(log_msg):
         print("Library System")
         print("1 Login")
         print("2 Signup")
         print("3 Exit")
-        print(Filter.log_msg)
+        print(log_msg)
         return input("Input: ")
 
     @staticmethod
-    def login(signal_id):
+    def login(log_msg):
         print("Login")
-        LibSysUi.__print_state(signal_id)
+        print(log_msg)
         
         username = input("Username: ")
         passcode = input("Password: ")
         return (username, passcode)
             
     @staticmethod
-    def signup(signal_id):
+    def signup(log_msg):
         print("Signup")
-        LibSysUi.__print_state(signal_id)
+        print(log_msg)
         
         username = input("Username: ")
         passcode = input("Password: ")
@@ -30,16 +30,16 @@ class LibSysUi:
         return (username, passcode, privilege)
 
     @staticmethod
-    def menu():
+    def menu(log_msg):
         print("Menu")
         print("1 Borrow Catalogs")
         print("2 Return Catalogs")
         print("3 Back to Main")
-        print(Filter.log_msg)
+        print(log_msg)
         return input("Input: ")
 
     @staticmethod
-    def borrow_cat(signal_id, catalogs):
+    def borrow_cat(log_msg, catalogs):
         layout = "{:<6} {:<20} {:<15} {:<10} {:<6} {:<20}"
         header = ["ID", "TITLE", "AUTHOR", "GENRE", "STOCKS", "REFERENCES"]
         print(layout.format(*header), end = "\n\n")
@@ -47,12 +47,9 @@ class LibSysUi:
         for catalog in catalogs:
             print(layout.format(*list(catalog)), end = "\n\n")
         print()
-        LibSysUi.__print_state(signal_id)
-
-        try: inp = int(input("Input: "))
-        except: inp = 0
-        return inp
-
+        print(log_msg, end = "\n\n")
+        return input("Input: ")
+    
     @staticmethod
     def return_cat(signal_id, transacts):
         layout = "{:<6} {:<20} {:<15} {:<6} {:<19} {:<19} {:<6}"
