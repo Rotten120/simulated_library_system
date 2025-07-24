@@ -1,4 +1,5 @@
 from lib_sys_ui import LibSysUi as ui
+from filter_val import Filter
 import mysql.connector
 import os
 
@@ -12,6 +13,7 @@ class LibSys:
         )
 
         self.__cursor = self.__conn.cursor()
+        self.log_msg = ""
         self.__logged = 0
 
     def __del__(self):
@@ -28,13 +30,12 @@ class LibSys:
 
     def main(self):
         choose = -1
-        signal_id = 0
         self.__logged = 0
         funcs = [self.login, self.signup, self.exit]
-        while not(0 <= choose <= 2):
+        while choose == -1:
             os.system('cls')
-            choose = ui.main(signal_id)
-            signal_id = 1
+            opt = ui.main()
+            choose = Filter.valid_option(opt, 0, 2)
         funcs[choose]()
 
     def login(self):
@@ -71,12 +72,11 @@ class LibSys:
 
     def menu(self):
         choose = -1
-        signal_id = 0
         funcs = [self.borrow_cat, self.return_cat, self.main]
-        while not(0 <= choose <= 2):
+        while choose == -1:
             os.system('cls')
-            choose = ui.menu(signal_id)
-            signal_id = 1
+            opt = ui.menu()
+            choose = Filter.valid_option(opt, 0, 2)
         funcs[choose]()
 
     def borrow_cat(self):

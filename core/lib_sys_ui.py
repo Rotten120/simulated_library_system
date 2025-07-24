@@ -1,15 +1,14 @@
+from filter_val import Filter
+
 class LibSysUi:
     @staticmethod
-    def main(signal_id):
+    def main():
         print("Library System")
         print("1 Login")
         print("2 Signup")
         print("3 Exit")
-        LibSysUi.__print_state(signal_id)
-
-        try: choose = int(input("Input: ")) - 1
-        except: choose = -1
-        return choose
+        print(Filter.log_msg)
+        return input("Input: ")
 
     @staticmethod
     def login(signal_id):
@@ -31,16 +30,13 @@ class LibSysUi:
         return (username, passcode, privilege)
 
     @staticmethod
-    def menu(signal_id):
+    def menu():
         print("Menu")
         print("1 Borrow Catalogs")
         print("2 Return Catalogs")
         print("3 Back to Main")
-        LibSysUi.__print_state(signal_id)
-
-        try: choose = int(input("Input: ")) - 1
-        except: choose = -1
-        return choose
+        print(Filter.log_msg)
+        return input("Input: ")
 
     @staticmethod
     def borrow_cat(signal_id, catalogs):
