@@ -1,5 +1,3 @@
-from filter_val import Filter
-
 class LibSysUi:
     @staticmethod
     def main(log_msg):
@@ -51,7 +49,7 @@ class LibSysUi:
         return input("Input: ")
     
     @staticmethod
-    def return_cat(signal_id, transacts):
+    def return_cat(log_msg, transacts):
         layout = "{:<6} {:<20} {:<15} {:<6} {:<19} {:<19} {:<6}"
         header = ["ID", "TITLE", "AUTHOR", "COPIES", "BORROWED DATE", "DUE DATE", "STATUS"]
         print(layout.format(*header), end = "\n\n")
@@ -62,11 +60,8 @@ class LibSysUi:
             li_transact[5] = LibSysUi.__print_date_time(li_transact[5])
             print(layout.format(*li_transact), end = "\n\n")
         print()
-        LibSysUi.__print_state(signal_id)
-
-        try: inp = int(input("Input: "))
-        except: inp = 0
-        return inp
+        print(log_msg, end ="\n\n")
+        return input("Input: ")
 
     def __get_privilege():
         print("Choose Borrowing Privilege:")
@@ -85,20 +80,3 @@ class LibSysUi:
         dt = (date_time.timetuple())[:6]
         tt = f"{dt[0]}/{dt[1]}/{dt[2]} {dt[3]}:{dt[4]}:{dt[5]}"
         return tt
-
-    def __print_state(state_id):
-        if state_id == 0:
-            return
-        
-        state_messages = [
-                "Option not in choices",
-                "Username does not exists",
-                "Incorrect Password",
-                "Username already exists. Try another",
-                "Catalog Borrowed",
-                "Catalog does not exists",
-                "Catalog returned",
-                "Transaction ID does not exist"
-            ]
-
-        print(state_messages[state_id - 1], end = "\n\n")
