@@ -38,8 +38,8 @@ class LibSysUi:
 
     @staticmethod
     def borrow_cat(log_msg, catalogs):
-        layout = "{:<6} {:<20} {:<15} {:<10} {:<6} {:<20}"
-        header = ["ID", "TITLE", "AUTHOR", "GENRE", "STOCKS", "REFERENCES"]
+        layout = "{:<6} {:<20} {:<15} {:<13} {:<10} {:<10} {:<6} {:<20}"
+        header = ["ID", "TITLE", "AUTHOR", "RELEASED YEAR", "GENRE", "MEDIA", "STOCKS", "REFERENCES"]
         print(layout.format(*header), end = "\n\n")
 
         for catalog in catalogs:
