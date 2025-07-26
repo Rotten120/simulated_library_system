@@ -39,7 +39,7 @@ class LibSys:
             os.system('cls')
             try:
                 opt = int(ui.main(log_msg)) - 1
-                choose = self.__is_opt_valid(opt, 0, 2)
+                choose = LibSys.__is_opt_valid(opt, 0, 2)
             except ValueError:
                 log_msg = "Invalid input"
             except OptionError as o:
@@ -92,7 +92,7 @@ class LibSys:
             os.system('cls')
             try:
                 opt = int(ui.menu(log_msg)) - 1
-                choose = self.__is_opt_valid(opt, 0, 2)
+                choose = LibSys.__is_opt_valid(opt, 0, 2)
             except ValueError:
                 log_msg = "Invalid input"
             except OptionError as o:
