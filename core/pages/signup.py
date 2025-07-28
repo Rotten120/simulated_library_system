@@ -14,7 +14,7 @@ class Signup:
                 Lib.switch_page("main_menu")
 
             try:
-                Lib.set("signup", log)
+                Lib.set("<signup>", log)
             except IntegrityError:
                 log_msg = "Username already exists"
             else:

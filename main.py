@@ -1,13 +1,14 @@
 from core.libsys import LibSys
-from core.pages.main_menu import MainMenu
-from core.pages.login import Login
-from core.pages.signup import Signup
+from core.pages import *
 
 if __name__ == "__main__":
     pages = {
         "main_menu": MainMenu,
         "login": Login,
-        "signup": Signup
+        "signup": Signup,
+        "menu": Menu,
+        "borrow_cat": BorrowCatalog,
+        "return_cat": ReturnCatalog
     }
     
     LibSys.init(

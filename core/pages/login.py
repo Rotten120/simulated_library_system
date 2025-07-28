@@ -13,7 +13,7 @@ class Login:
                 Lib.switch_page("main_menu")
 
             try:
-                Lib.logged = Lib.get("login", log)[0][0]
+                Lib.logged = Lib.get("<login>", log)[0][0]
             except Error as e:
                 if e.errno == 50001:
                     log_msg = "Username does not exist"
@@ -21,7 +21,7 @@ class Login:
                     log_msg = "Incorrect Password"
             else:
                 break
-        Lib.switch_page("main_menu")
+        Lib.switch_page("menu")
 
     def display(log_msg):
         print("Login")

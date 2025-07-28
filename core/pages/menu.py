@@ -1,7 +1,7 @@
 from core.pages.base_imports import *
 from utils.filter_value import FilterValue as filt
 
-class MainMenu:
+class Menu:
     def run():
         choose = -1
         log_msg = ""
@@ -11,7 +11,7 @@ class MainMenu:
             os.system('cls')
             
             try:
-                opt = int(MainMenu.display(log_msg))
+                opt = int(Menu.display(log_msg))
                 choose = filt.val_in_range(opt, 1, 3)
             except ValueError:
                 log_msg = "Invalid Input"
@@ -19,16 +19,17 @@ class MainMenu:
                 log_msg = o
 
         if opt == 1:
-            Lib.switch_page("login")
+            Lib.switch_page("borrow_cat")
         if opt == 2:
-            Lib.switch_page("signup")
-        quit()
+            Lib.switch_page("return_cat")
+        if opt == 3:
+            Lib.switch_page("main_menu")
 
     def display(log_msg):
-        print("Library System")
-        print("1 Login")
-        print("2 Signup")
-        print("3 Exit")
+        print("Menu")
+        print("1 Borrow Catalogs")
+        print("2 Return Catalogs")
+        print("3 Back to Main")
         print(log_msg)
         return input("Input: ")
         
