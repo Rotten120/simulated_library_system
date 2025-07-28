@@ -2,7 +2,6 @@ copy/
 documentation/
 __pycache__/
 core/__pycache__/
-core/__init__.py
 core/base_imports.py
 core/library_system_client.py
 core/library_system_client_ui.py

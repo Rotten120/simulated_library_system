@@ -1,14 +1,21 @@
-from core.library_system_client import LibSysClient
-
-directory = {
-    "account": "database\\account_lists",
-    "catalog": "database\\catalog_lists",
-    "transact": "database\\transact_lists"
-}
-
-def main():
-    library = LibSysClient(directory)
-    library.start()
+from core.libsys import LibSys
+from core.pages.main_menu import MainMenu
+from core.pages.login import Login
+from core.pages.signup import Signup
 
 if __name__ == "__main__":
-    main()
+    pages = {
+        "main_menu": MainMenu,
+        "login": Login,
+        "signup": Signup
+    }
+    
+    LibSys.init(
+        "localhost",
+        "root",
+        "RottenFlesh@123",
+        "sim_lib_sys",
+        pages
+    )
+
+    LibSys.switch_page("main_menu")
