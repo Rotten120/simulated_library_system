@@ -1,0 +1,5 @@
+50001: Username does not exist
+50002: Incorrect password
+50003: Invalid value to borrow
+50004: CatalogID cannot be changed
+50005: You are borrowing more stocks than what is available

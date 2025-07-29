@@ -2,7 +2,6 @@ CREATE TABLE catalogs (
 	catalogID INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
     author VARCHAR(100) NOT NULL,
-    genre VARCHAR(50) NOT NULL,
     stocks INT,
     ref VARCHAR(150)
 );
@@ -22,5 +21,12 @@ CREATE TABLE transacts (
     borrowDate DATETIME,
     returnDate DATETIME,
     FOREIGN KEY (accountID) REFERENCES accounts(accountID),
+    FOREIGN KEY (catalogID) REFERENCES catalogs(catalogID)
+);
+
+CREATE TABLE genres (
+	genreID INT AUTO_INCREMENT PRIMARY KEY,
+	catalogID INT,
+    genre VARCHAR(50) NOT NULL,
     FOREIGN KEY (catalogID) REFERENCES catalogs(catalogID)
 );
