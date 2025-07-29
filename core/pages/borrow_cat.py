@@ -28,7 +28,7 @@ class BorrowCatalog:
         Lib.switch_page("menu")
 
     def display(log_msg, catalogs):
-        layout = "{:<6} {:<20} {:<15} {:<13} {:<10} {:<10} {:<6} {:<20}"
+        layout = "{:<6} {:<20} {:<15} {:<13} {:<20} {:<10} {:<6} {:<20}"
         header = ["ID", "TITLE", "AUTHOR", "RELEASED YEAR", "GENRE", "MEDIA", "STOCKS", "REFERENCES"]
         print(layout.format(*header), end = "\n\n")
 
