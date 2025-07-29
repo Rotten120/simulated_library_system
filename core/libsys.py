@@ -30,7 +30,7 @@ class LibSys:
     def set(key, params = None):
         query = Queries.get(key)
         LibSys.__cursor.execute(query, params)
-        LibSys.__cursor.commit()
+        LibSys.__conn.commit()
 
     def switch_page(key):
         LibSys.__pages[key].run()

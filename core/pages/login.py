@@ -1,4 +1,4 @@
-from core.pages.base_imports import *
+from core.pages.page import *
 from mysql.connector import Error
 
 class Login:

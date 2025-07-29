@@ -1,4 +1,4 @@
-from core.pages.base_imports import *
+from core.pages.page import *
 from utils.date_time_format import DateTime
 
 class ReturnCatalog:
@@ -47,8 +47,6 @@ class ReturnCatalog:
     def __get_acc_transacts():
         procedure = "getAccTransact"
         param = [Lib.logged]
-
-        print(Lib.logged)
         
         Lib.cursor().callproc(procedure, param)
         results = Lib.cursor().stored_results()\

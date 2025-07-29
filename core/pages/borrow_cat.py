@@ -1,5 +1,6 @@
-from core.pages.base_imports import *
+from core.pages.page import *
 from mysql.connector.errors import IntegrityError
+from mysql.connector import Error
 
 class BorrowCatalog:
     def run():
@@ -18,6 +19,9 @@ class BorrowCatalog:
                 log_msg = "Invalid input"
             except IntegrityError:
                 log_msg = "Catalog does not exist"
+            except Error as e:
+                if e.errno == 50005:
+                    log_msg = "Insufficient stocks"
             else:
                 log_msg = "Catalog Borrowed!"
 

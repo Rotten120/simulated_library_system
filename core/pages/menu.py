@@ -1,11 +1,10 @@
-from core.pages.base_imports import *
+from core.pages.page import *
 from utils.filter_value import FilterValue as filt
 
 class Menu:
     def run():
         choose = -1
         log_msg = ""
-        Lib.logged = 0
 
         while choose == -1:
             os.system('cls')
