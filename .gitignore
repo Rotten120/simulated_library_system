@@ -1,11 +1,5 @@
-copy/
 documentation/
 __pycache__/
 core/__pycache__/
-core/base_imports.py
-core/library_system_client.py
-core/library_system_client_ui.py
 core/test.py
-database/
-table/
-table_manager/
+utils/__pycache__/
