@@ -26,6 +26,7 @@ BEGIN
             MYSQL_ERRNO = 50003;
     END IF;
 
+	CALL checkMaxBorrows(NEW.accountID, NEW.borrowStocks);
 	CALL updateStocks(NEW.catalogID, -NEW.borrowStocks);
 END
 // DELIMITER ; 

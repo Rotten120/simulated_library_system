@@ -3,3 +3,4 @@
 50003: Invalid value to borrow
 50004: CatalogID cannot be changed
 50005: You are borrowing more stocks than what is available
+50006: Exceed allowed borrow count
