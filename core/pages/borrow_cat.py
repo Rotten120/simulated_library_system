@@ -22,6 +22,8 @@ class BorrowCatalog:
             except Error as e:
                 if e.errno == 50005:
                     log_msg = "Insufficient stocks"
+                if e.errno == 50006:
+                    log_msg = "Exceeded allowed borrow count"
             else:
                 log_msg = "Catalog Borrowed!"
 
