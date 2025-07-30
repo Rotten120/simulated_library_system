@@ -10,7 +10,8 @@ CREATE TABLE accounts (
 	accountID INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(100) UNIQUE NOT NULL,	
     passcode VARCHAR(50) NOT NULL,
-    privilege ENUM('Basic', 'Student', 'Instructor', 'Staff') DEFAULT ('Basic') 
+    privID INT DEFAULT (1),
+    FOREIGN KEY (privID) REFERENCES accountPrivileges(privID)
 );
 
 CREATE TABLE transacts (
@@ -29,4 +30,10 @@ CREATE TABLE genres (
 	catalogID INT,
     genre VARCHAR(50) NOT NULL,
     FOREIGN KEY (catalogID) REFERENCES catalogs(catalogID)
+);
+
+CREATE TABLE accPrivs (
+	privID INT AUTO_INCREMENT PRIMARY KEY,
+    privType VARCHAR(20),
+    maxBorrows INT
 );

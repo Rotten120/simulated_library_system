@@ -35,11 +35,10 @@ class Signup:
         print("Choose Borrowing Privilege:")
         print(" 1) Basic\n 2) Student")
         print(" 3) Instructor\n 4) Staff")
-        options = ["Basic", "Student", "Instructor", "Staff"]
         
         choose = -1
         while not(1 <= choose <= 4):
             try: choose = int(input("Choose: "))
             except: continue
         
-        return options[choose - 1]
+        return choose
