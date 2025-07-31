@@ -35,5 +35,6 @@ CREATE TABLE genres (
 CREATE TABLE accPrivs (
 	privID INT AUTO_INCREMENT PRIMARY KEY,
     privType VARCHAR(20),
-    maxBorrows INT
+    maxBorrows INT,
+    lateFine INT
 );

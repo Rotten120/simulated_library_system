@@ -6,7 +6,8 @@ SELECT
     borrowStocks AS 'Copies Borrowed',
     borrowDate AS 'Borrow Date',
     returnDate AS 'Return Date',
-    borrowStatus(borrowDate, returnDate) AS 'Status'
+    borrowStatus(borrowDate, returnDate) AS 'Status',
+    fineBalance(transactID) AS 'Fine'
 -- NOT SURE IF IT SHOULD BE INNER OR LEFT JOIN
 FROM transacts
 	INNER JOIN accounts

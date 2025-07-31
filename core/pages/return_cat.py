@@ -27,8 +27,8 @@ class ReturnCatalog:
         Lib.switch_page("menu")
 
     def display(log_msg, transacts):
-        layout = "{:<6} {:<20} {:<15} {:<6} {:<19} {:<19} {:<6}"
-        header = ["ID", "TITLE", "AUTHOR", "COPIES", "BORROWED DATE", "DUE DATE", "STATUS"]
+        layout = "{:<6} {:<20} {:<15} {:<6} {:<19} {:<19} {:<6} {:<4}"
+        header = ["ID", "TITLE", "AUTHOR", "COPIES", "BORROWED DATE", "DUE DATE", "STATUS", "FINE"]
         print(layout.format(*header), end = "\n\n")
 
         for transact in transacts:
