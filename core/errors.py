@@ -9,6 +9,16 @@ class ValueNotFoundError(Exception):
     def __init__(self, key = "Value"):
         super().__init__(key + " does not exist")
 
-class IntegrityError(Exception):
+class MisMatchError(Exception):
     def __init__(self, key = "Value"):
-        super().__init__(key + " already exists")
+        super().__init__(key + " is incorrect")
+
+class StockError(Exception):
+    def __init__(self):
+        super().__init__("Insufficient Stocks")
+
+class BorrowError(Exception):
+    def __init__(self):
+        super().__init__("Exceeded allowed borrow count")
+
+

@@ -15,10 +15,11 @@ class Login:
             try:
                 Lib.logged = Lib.get("<login>", log)[0][0]
             except Error as e:
-                if e.errno == 50001:
-                    log_msg = "Username does not exist"
-                if e.errno == 50002:
-                    log_msg = "Incorrect Password"
+                Login.check_exceptions(e.errno)
+            except ValueNotFoundError as v:
+                log_msg = v
+            except MisMatchError as m:
+                log_msg = m
             else:
                 break
         Lib.switch_page("menu")
@@ -30,3 +31,9 @@ class Login:
         username = input("Username: ")
         passcode = input("Password: ")
         return (username, passcode)
+
+    def check_exceptions(errno):
+        if errno == 50001:
+            raise ValueNotFoundError("Username")
+        if errno == 50002:
+            raise MisMatchError("Password")

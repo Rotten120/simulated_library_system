@@ -14,9 +14,7 @@ class ReturnCatalog:
                 inp = int(ReturnCatalog.display(log_msg, transacts))
                 params = (Lib.logged, inp)
                 Lib.set("<return_cat>", params)
-
-                if Lib.cursor().rowcount == 0:
-                    raise ValueNotFoundError("Transaction ID")
+                ReturnCatalog.transact_exists()
             except ValueError:
                 log_msg = "Invalid input"
             except ValueNotFoundError as v:
@@ -37,6 +35,10 @@ class ReturnCatalog:
         print()
         print(log_msg, end ="\n\n")
         return input("Input: ")
+
+    def transact_exists():
+        if Lib.cursor().rowcount == 0:
+            raise ValueNotFoundError("Transaction ID")
 
     def __format_transact(transact):
         li_transact = list(transact)

@@ -15,7 +15,7 @@ if __name__ == "__main__":
     LibSys.init(
         "localhost",
         "root",
-        "RottenFlesh@123",
+        "RottenFlesh@123",I
         "sim_lib_sys",
         pages
     )

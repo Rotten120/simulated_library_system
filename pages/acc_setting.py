@@ -13,7 +13,7 @@ class AccSetting:
 
             try:
                 inp = int(AccSetting.display(log_msg, account))
-                inp = filt.val_in_range(inp, 1, 3)
+                choose = filt.val_in_range(inp, 1, 3)
             except ValueError:
                 log_msg = "Invalid Input"
             except OptionError as o:
