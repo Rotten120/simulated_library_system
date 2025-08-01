@@ -49,7 +49,7 @@ class ReturnCatalog:
         param = [Lib.logged]
         
         Lib.cursor().callproc(procedure, param)
-        results = Lib.cursor().stored_results()\
+        results = Lib.cursor().stored_results()
 
         transacts = next(results, None).fetchall()
         return transacts

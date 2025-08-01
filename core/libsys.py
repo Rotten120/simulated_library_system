@@ -23,7 +23,7 @@ class LibSys:
         return LibSys.__cursor
 
     def commit():
-        LibSys.__commit()
+        LibSys.__conn.commit()
 
     def get(key, params = None):
         query = Queries.get(key)
