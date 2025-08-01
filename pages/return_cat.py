@@ -1,4 +1,4 @@
-from core.pages.page import *
+from pages.page import *
 from utils.date_time_format import DateTime
 
 class ReturnCatalog:

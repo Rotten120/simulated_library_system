@@ -1,4 +1,4 @@
-from core.pages.page import *
+from pages.page import *
 from mysql.connector.errors import IntegrityError
 from mysql.connector import Error
 

@@ -1,5 +1,5 @@
 from core.libsys import LibSys
-from core.pages import *
+from pages import *
 
 if __name__ == "__main__":
     pages = {
@@ -8,7 +8,8 @@ if __name__ == "__main__":
         "signup": Signup,
         "menu": Menu,
         "borrow_cat": BorrowCatalog,
-        "return_cat": ReturnCatalog
+        "return_cat": ReturnCatalog,
+        "acc_setting": AccSetting
     }
     
     LibSys.init(

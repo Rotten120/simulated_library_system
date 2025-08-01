@@ -1,4 +1,4 @@
-from core.pages.page import *
+from pages.page import *
 from utils.filter_value import FilterValue as filt
 
 class MainMenu:

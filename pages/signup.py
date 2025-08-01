@@ -1,4 +1,4 @@
-from core.pages.page import *
+from pages.page import *
 from mysql.connector.errors import IntegrityError
 
 class Signup:
@@ -21,7 +21,7 @@ class Signup:
                 signup_done = True
         Lib.switch_page("main_menu")
 
-    def display():
+    def display(log_msg):
         print("Signup")
         print(log_msg)
         
