@@ -4,23 +4,23 @@ from pages.acc_alter import *
 
 class AccSetting:
     def run():
-        inp = 0
+        choose = 0
         log_msg = ""
 
-        while inp != -1:
+        while choose != -1:
             os.system('cls')
             account = AccSetting.__get_acc_details()
 
             try:
-                inp = AccSetting.display(log_msg, account)
-                filt.val_in_range(inp, 1, 3)
+                choose = AccSetting.display(log_msg, account)
+                filt.val_in_range(choose, 1, 3)
             except ValueError:
                 log_msg = "Invalid Input"
             except OptionError as o:
                 log_msg = o;
             else:
                 opts = [ChangeUser, ChangePass, ChangePriv]
-                opts[inp - 1].run()
+                opts[choose - 1].run()
                     
         Lib.switch_page("menu")
 

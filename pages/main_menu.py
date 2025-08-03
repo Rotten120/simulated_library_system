@@ -11,18 +11,18 @@ class MainMenu:
             os.system('cls')
             
             try:
-                opt = MainMenu.display(log_msg)
-                filt.val_in_range(opt, 1, 3)
+                choose = MainMenu.display(log_msg)
+                filt.val_in_range(choose, 1, 3)
             except ValueError:
                 log_msg = "Invalid Input"
             except OptionError as o:
                 log_msg = o
+                choose = -1
 
-        if opt == 1:
-            Lib.switch_page("login")
-        if opt == 2:
-            Lib.switch_page("signup")
-        quit()
+        if choose == 3:
+            quit()
+        opts = ["login", "signup"]
+        Lib.switch_page(opts[choose - 1])
 
     def display(log_msg):
         print("Library System")

@@ -10,15 +10,16 @@ class Menu:
             os.system('cls')
             
             try:
-                opt = Menu.display(log_msg)
-                filt.val_in_range(opt, 1, 4)
+                choose = Menu.display(log_msg)
+                filt.val_in_range(choose, 1, 4)
             except ValueError:
                 log_msg = "Invalid Input"
             except OptionError as o:
                 log_msg = o
+                choose = -1
 
         opts = ["borrow_cat", "return_cat", "acc_setting", "main_menu"]
-        Lib.switch_page(opts[opt - 1])
+        Lib.switch_page(opts[choose - 1])
 
     def display(log_msg):
         print("Menu")
