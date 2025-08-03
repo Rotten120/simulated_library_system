@@ -12,9 +12,8 @@ class ChangePass:
             try:
                 inp = ChangePass.display(log_msg)
                 ChangePass.__change_pass(inp)
-            except Error as e:
-                if e.errno == 50002:
-                    log_msg = "Incorrect Password"
+            except MisMatchError as m:
+                log_msg = m.root("Password")
             else:
                 break
 
@@ -31,7 +30,10 @@ class ChangePass:
         procedure = "changePassword"
         param = [Lib.logged, new_passcode, old_passcode]
 
-        Lib.cursor().callproc(procedure, param)
+        try:
+            Lib.cursor().callproc(procedure, param)
+        except Error as e:
+            LibErrors.throw(e)
         Lib.commit()
 
         

@@ -15,9 +15,8 @@ class ChangeUser:
                 ChangeUser.__change_user(inp)
             except IntegrityError:
                 log_msg = "Username already exist"
-            except Error as e:
-                if e.errno == 50002:
-                    log_msg = "Incorrect Password"
+            except MisMatchError as m:
+                log_msg = m.root("Password")
             else:
                 break
 
@@ -34,7 +33,11 @@ class ChangeUser:
         procedure = "changeUsername"
         param = [Lib.logged, username, passcode]
 
-        Lib.cursor().callproc(procedure, param)
+        try:
+            Lib.cursor().callproc(procedure, param)
+        except Error as e:
+            LibErrors.throw(e)
+            
         Lib.commit()
 
         

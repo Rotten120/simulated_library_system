@@ -19,9 +19,8 @@ class ChangePriv:
             except OptionError as o:
                 log_msg = o
                 if inp[0] == -1: continue
-            except Error as e:
-                if e.errno == 50002:
-                    log_msg = "Incorrect Password"
+            except MisMatchError as m:
+                log_msg = m.root("Password")
             else:
                 break
 
@@ -41,6 +40,9 @@ class ChangePriv:
         procedure = "changePrivilege"
         param = [Lib.logged, inp[0], inp[1]]
 
-        Lib.cursor().callproc(procedure, param)
+        try:
+            Lib.cursor().callproc(procedure, param)
+        except Error as e:
+            LibErrors.throw(e)
         Lib.commit()
         

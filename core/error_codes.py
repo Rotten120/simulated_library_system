@@ -11,9 +11,16 @@ class LibErrors:
         50008: OptionError
     }
 
-    def throw(errno, param = None):
+    def throw(error):
+        #USER EXCEPTIONS
+        if error.errno in LibErrors.errnos:
+            LibErrors.exceptions(error.errno)
+        #BUILT-IN MYSQL EXCEPTIONS
+        else:
+            raise error
+
+    def exceptions(errno, param = None):
         if param != None:
-            raise LibErrors.errnos[errno](param)
+            raise LibErrors.errnoso[errno](param)
         else:
             raise LibErrors.errnos[errno]
-
