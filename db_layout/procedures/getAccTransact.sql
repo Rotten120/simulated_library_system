@@ -8,7 +8,8 @@ BEGIN
         t.borrowStocks AS 'Copies Borrowed',
         t.borrowDate AS 'Borrow Date',
         t.returnDate AS 'Return Date',
-        borrowStatus(t.borrowDate, t.returnDate) AS 'Status'
+        borrowStatus(t.borrowDate, t.returnDate) AS 'Status',
+        fineBalance(t.transactID) AS 'Fine'
 	FROM transacts t
 		INNER JOIN accounts a
 			ON t.accountID = a.accountID
