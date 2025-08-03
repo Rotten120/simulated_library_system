@@ -11,8 +11,8 @@ class MainMenu:
             os.system('cls')
             
             try:
-                opt = int(MainMenu.display(log_msg))
-                choose = filt.val_in_range(opt, 1, 3)
+                opt = MainMenu.display(log_msg)
+                filt.val_in_range(opt, 1, 3)
             except ValueError:
                 log_msg = "Invalid Input"
             except OptionError as o:
@@ -30,5 +30,5 @@ class MainMenu:
         print("2 Signup")
         print("3 Exit")
         print(log_msg)
-        return input("Input: ")
+        return int(input("Input: "))
         

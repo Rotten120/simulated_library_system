@@ -1,4 +1,5 @@
 import mysql.connector
+from core.error_codes import LibErrors
 from core.queries import Queries
 
 class LibSys:
@@ -26,14 +27,26 @@ class LibSys:
         LibSys.__conn.commit()
 
     def get(key, params = None):
-        query = Queries.get(key)
-        LibSys.__cursor.execute(query, params)
-        return LibSys.__cursor.fetchall()
+        try:
+            query = Queries.get(key)
+            LibSys.__cursor.execute(query, params)
+            return LibSys.__cursor.fetchall()
+        except mysql.connector.Error as e:
+            LibSys.catch_exception(e)
 
     def set(key, params = None):
-        query = Queries.get(key)
-        LibSys.__cursor.execute(query, params)
-        LibSys.__conn.commit()
+        try:
+            query = Queries.get(key)
+            LibSys.__cursor.execute(query, params)
+            LibSys.__conn.commit()
+        except mysql.connector.Error as e:
+            LibSys.catch_exception(e)
+
+    def catch_exception(error):
+        if error.errno in LibErrors.errnos:
+            LibErrors.throw(error.errno)
+        else:
+            raise error
 
     def switch_page(key):
         LibSys.__pages[key].run()

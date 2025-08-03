@@ -12,19 +12,15 @@ class AccSetting:
             account = AccSetting.__get_acc_details()
 
             try:
-                inp = int(AccSetting.display(log_msg, account))
-                choose = filt.val_in_range(inp, 1, 3)
+                inp = AccSetting.display(log_msg, account)
+                filt.val_in_range(inp, 1, 3)
             except ValueError:
                 log_msg = "Invalid Input"
             except OptionError as o:
                 log_msg = o;
             else:
-                if inp == 1:
-                    ChangeUser.run()
-                if inp == 2:
-                    ChangePass.run()
-                if inp == 3:
-                    ChangePriv.run()
+                opts = [ChangeUser, ChangePass, ChangePriv]
+                opts[inp - 1].run()
                     
         Lib.switch_page("menu")
 
@@ -42,7 +38,7 @@ class AccSetting:
         print("1 Change username")
         print("2 Change password")
         print("3 Change privilege")
-        return input("Input: ")
+        return int(input("Input: "))
         
     def __get_acc_details():
         procedure = "getAccDetails"

@@ -18,7 +18,7 @@ class ReturnCatalog:
             except ValueError:
                 log_msg = "Invalid input"
             except ValueNotFoundError as v:
-                log_msg = v
+                log_msg = v.root("Transaction ID")
             else:
                 log_msg = "Catalog Returned!"
 
@@ -38,7 +38,7 @@ class ReturnCatalog:
 
     def transact_exists():
         if Lib.cursor().rowcount == 0:
-            raise ValueNotFoundError("Transaction ID")
+            raise ValueNotFoundError
 
     def __format_transact(transact):
         li_transact = list(transact)

@@ -10,21 +10,15 @@ class Menu:
             os.system('cls')
             
             try:
-                opt = int(Menu.display(log_msg))
-                choose = filt.val_in_range(opt, 1, 4)
+                opt = Menu.display(log_msg)
+                filt.val_in_range(opt, 1, 4)
             except ValueError:
                 log_msg = "Invalid Input"
             except OptionError as o:
                 log_msg = o
 
-        if opt == 1:
-            Lib.switch_page("borrow_cat")
-        if opt == 2:
-            Lib.switch_page("return_cat")
-        if opt == 3:
-            Lib.switch_page("acc_setting")
-        if opt == 4:
-            Lib.switch_page("main_menu")
+        opts = ["borrow_cat", "return_cat", "acc_setting", "main_menu"]
+        Lib.switch_page(opts[opt - 1])
 
     def display(log_msg):
         print("Menu")
@@ -33,5 +27,5 @@ class Menu:
         print("3 Account Settings")
         print("4 Back to Main")
         print(log_msg)
-        return input("Input: ")
+        return int(input("Input: "))
         

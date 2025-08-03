@@ -15,8 +15,6 @@ class BorrowCatalog:
                 inp = int(BorrowCatalog.display(log_msg, catalogs))
                 params = (Lib.logged, inp)
                 Lib.set("<borrow_cat>", params)
-            except Error as e:
-                BorrowCatalog.check_exceptions(e.errno)
             except ValueError:
                 log_msg = "Invalid input"
             except IntegrityError:
@@ -40,9 +38,3 @@ class BorrowCatalog:
         print()
         print(log_msg, end = "\n\n")
         return input("Input: ")
-
-    def check_exceptions(errno):
-        if errno == 50005:
-            raise StockError
-        if errno == 50006:
-            raise BorrowError

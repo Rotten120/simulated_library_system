@@ -15,9 +15,10 @@ if __name__ == "__main__":
     LibSys.init(
         "localhost",
         "root",
-        "RottenFlesh@123",I
+        "RottenFlesh@123",
         "sim_lib_sys",
         pages
     )
 
     LibSys.switch_page("main_menu")
+    
