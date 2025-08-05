@@ -4,7 +4,7 @@ from pages import *
 # remove this <ROOT> and replace all of its instances
 # with the informtion necessary before
 # executing in your own device
-from ROOT import Root
+import ROOT
 
 if __name__ == "__main__":
     pages = {
@@ -19,9 +19,9 @@ if __name__ == "__main__":
 
     LibSys.init(
         "localhost",
-        Root.user,      # replace with your superuser
-        Root.password,  # replace with your superuser's password
-        "sim_lib_sys",
+        ROOT.user,      # replace with your superuser
+        ROOT.password,  # replace with your superuser's password
+        "sim_lib_sys",  # replace with name of database
         pages
     )
 

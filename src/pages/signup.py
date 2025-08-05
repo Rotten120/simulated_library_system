@@ -11,7 +11,7 @@ class Signup:
             log = Signup.display(log_msg)
 
             if log[0] == "-1":
-                Lib.switch_page("main_menu")
+                break
 
             try:
                 Lib.set("<signup>", log)
@@ -19,6 +19,7 @@ class Signup:
                 log_msg = "Username already exists"
             else:
                 signup_done = True
+                
         Lib.switch_page("main_menu")
 
     def display(log_msg):
