@@ -5,4 +5,7 @@ doc/FINAL_DEMO.mp4
 **/__pycache__/
 src/core/test.py
 
+build/main.spec
+build/main
+
 ROOT.py
