@@ -3,26 +3,39 @@ from utils.filter_value import FilterValue as filt
 
 class MainMenu:
     def run():
-        choose = -1
         log_msg = ""
-        Lib.logged = 0
-
-        while choose == -1:
+        
+        while True:
             os.system('cls')
-            
-            try:
-                choose = MainMenu.display(log_msg)
-                filt.val_in_range(choose, 1, 3)
-            except ValueError:
-                log_msg = "Invalid Input"
-            except OptionError as o:
-                log_msg = o
-                choose = -1
+            Lib.logged = 0
+            inp = MainMenu.display(log_msg)  
+            out = MainMenu.filter(inp)
 
-        if choose == 3:
-            quit()
-        opts = ["login", "signup"]
-        Lib.switch_page(opts[choose - 1])
+            log_msg = out[0]
+            opt = out[1]
+
+            if opt == 3:
+                break
+            if opt != -1:
+                MainMenu.logic(opt)
+        return
+
+    def filter(inp):
+        try:
+            opt = int(inp)
+            filt.val_in_range(opt, 1, 3)
+        except ValueError:
+            log_msg = "Invalid Input"
+        except OptionError as o:
+            log_msg = o
+        else:
+            return ("", opt)   
+        return (log_msg, -1)
+
+    def logic(opt):
+        pages = ["login", "signup"]
+        page = pages[opt - 1]
+        Lib.switch_page(page)
 
     def display(log_msg):
         print("Library System")
@@ -30,5 +43,5 @@ class MainMenu:
         print("2 Signup")
         print("3 Exit")
         print(log_msg)
-        return int(input("Input: "))
+        return input("Input: ")
         

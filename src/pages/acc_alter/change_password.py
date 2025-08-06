@@ -4,18 +4,25 @@ from mysql.connector import Error
 class ChangePass:
     def run():
         inp = ("",)
-        log_msg = ""
+        log_msg = " "
 
-        while inp[0] != "-1":
+        while log_msg[0] != 'S':
             os.system('cls')
+            inp = ChangePass.display(log_msg)
 
-            try:
-                inp = ChangePass.display(log_msg)
-                ChangePass.__change_pass(inp)
-            except MisMatchError as m:
-                log_msg = m.root("Password")
-            else:
+            if inp[0] == "-1":
                 break
+            
+            log_msg = ChangePass.logic(inp)
+        return
+
+    def logic(inp):
+        log_msg = "Successfully changed password"
+        try:
+            ChangePass.__change_pass(inp)
+        except MisMatchError as m:
+            log_msg = m.root("Password")
+        return log_msg
 
     def display(log_msg):
         print("Changing Password")

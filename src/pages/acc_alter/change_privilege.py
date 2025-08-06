@@ -4,25 +4,32 @@ from utils.filter_value import FilterValue as filt
 
 class ChangePriv:
     def run():
-        inp = (0,)
-        log_msg = ""
+        inp = ("",)
+        log_msg = " "
 
-        while inp[0] != -1:
+        while log_msg[0] != 'S':
             os.system('cls')
+            inp = ChangePriv.display(log_msg)
 
-            try:
-                inp = ChangePriv.display(log_msg)
-                choose = filt.val_in_range(inp[0], 1, 4)
-                ChangePriv.__change_priv(inp)
-            except ValueError:
-                log_msg = "Invalid Input"
-            except OptionError as o:
-                log_msg = o
-                if inp[0] == -1: continue
-            except MisMatchError as m:
-                log_msg = m.root("Password")
-            else:
+            if inp[0] == "-1":
                 break
+            
+            log_msg = ChangePriv.logic(inp)
+        return
+
+    def logic(inp):
+        log_msg = "Successfully changed privilege"
+        try:
+            param = (int(inp[0]), inp[1])
+            filt.val_in_range(param[0], 1, 4)
+            ChangePriv.__change_priv(param)
+        except ValueError:
+            log_msg = "Invalid Input"
+        except OptionErorr as o:
+            log_msg = o
+        except MisMatchError as m:
+            log_msg = m.root("Password")
+        return log_msg
 
     def display(log_msg):
         print("Changing Privilege")
@@ -32,7 +39,7 @@ class ChangePriv:
         print("3 Instructor")
         print("4 Staff")
         print()
-        privID = int(input("Input: "))
+        privID = input("Input: ")
         code = input("Input password: ")
         return (privID, code)
 

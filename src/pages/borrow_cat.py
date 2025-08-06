@@ -4,29 +4,38 @@ from mysql.connector import Error
 
 class BorrowCatalog:
     def run():
-        inp = 0
+        cid = 0
         log_msg = ""
 
-        while inp != -1:
+        while cid != -1:
             os.system('cls')
             catalogs = Lib.get("<display_cat>")
+            inp = BorrowCatalog.display(log_msg, catalogs)
+            out = BorrowCatalog.logic(inp)
+            
+            log_msg = out[0]
+            cid = out[1]
+        return
 
-            try:
-                inp = int(BorrowCatalog.display(log_msg, catalogs))
-                params = (Lib.logged, inp)
-                Lib.set("<borrow_cat>", params)
-            except ValueError:
-                log_msg = "Invalid input"
-            except IntegrityError:
-                log_msg = "Catalog does not exist"
-            except StockError as s:
-                log_msg = s
-            except BorrowError as b:
-                log_msg = b
-            else:
-                log_msg = "Catalog Borrowed!"
-
-        Lib.switch_page("menu")
+    def logic(inp):
+        if inp == "-1":
+            return ("Leaving page...", -1)
+        
+        log_msg = "Catalog Borrowed!"
+        try:
+            cid = int(inp)
+            params = (Lib.logged, cid)
+            Lib.set("<borrow_cat>", params)
+        except ValueError:
+            log_msg = "Invalid Input"
+            cid = 0
+        except IntegrityError:
+            log_msg = "Catalog does not exist"
+        except StockError as s:
+            log_msg = s
+        except BorrowError as b:
+            log_msg = b
+        return (log_msg, cid)
 
     def display(log_msg, catalogs):
         layout = "{:<6} {:<20} {:<15} {:<13} {:<20} {:<10} {:<6} {:<20}"

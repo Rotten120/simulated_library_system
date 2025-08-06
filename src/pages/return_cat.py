@@ -3,26 +3,35 @@ from utils.date_time_format import DateTime
 
 class ReturnCatalog:
     def run():
-        inp = 0
+        tid = 0
         log_msg = ""
 
-        while inp != -1:
+        while tid != -1:
             os.system('cls')
             transacts = ReturnCatalog.__get_acc_transacts()
-    
-            try:
-                inp = int(ReturnCatalog.display(log_msg, transacts))
-                params = (Lib.logged, inp)
-                Lib.set("<return_cat>", params)
-                ReturnCatalog.transact_exists()
-            except ValueError:
-                log_msg = "Invalid input"
-            except ValueNotFoundError as v:
-                log_msg = v.root("Transaction ID")
-            else:
-                log_msg = "Catalog Returned!"
+            inp = ReturnCatalog.display(log_msg, transacts)
+            out = ReturnCatalog.logic(inp)
 
-        Lib.switch_page("menu")
+            log_msg = out[0]
+            tid = out[1]
+        return
+
+    def logic(inp):
+        if inp == "-1":
+            return ("Leaving page...", -1)
+        
+        log_msg = "Catalog Returned!"
+        try:
+            tid = int(inp)
+            params = (Lib.logged, tid)
+            Lib.set("<return_cat>", params)
+            ReturnCatalog.transact_exists()
+        except ValueError:
+            log_msg = "Invalid Input"
+            tid = 0
+        except ValueNotFoundError as v:
+            log_msg = v.root("Transaction ID")
+        return (log_msg, tid)
 
     def display(log_msg, transacts):
         layout = "{:<6} {:<20} {:<15} {:<6} {:<19} {:<19} {:<6} {:<4}"

@@ -3,23 +3,38 @@ from utils.filter_value import FilterValue as filt
 
 class Menu:
     def run():
-        choose = -1
         log_msg = ""
 
-        while choose == -1:
+        while True:
             os.system('cls')
-            
-            try:
-                choose = Menu.display(log_msg)
-                filt.val_in_range(choose, 1, 4)
-            except ValueError:
-                log_msg = "Invalid Input"
-            except OptionError as o:
-                log_msg = o
-                choose = -1
+            inp = Menu.display(log_msg)
+            out = Menu.filter(inp)
 
-        opts = ["borrow_cat", "return_cat", "acc_setting", "main_menu"]
-        Lib.switch_page(opts[choose - 1])
+            log_msg = out[0]
+            opt = out[1]
+
+            if opt == 4:
+                break
+            if opt != -1:
+                Menu.logic(opt)
+        return
+
+    def filter(inp):
+        try:
+            opt = int(inp)
+            filt.val_in_range(opt, 1, 4)
+        except ValueError:
+            log_msg = "Invalid Input"
+        except OptionError as o:
+            log_msg = o
+        else:
+            return ("", opt)
+        return (log_msg, -1)
+
+    def logic(opt):
+        pages = ["borrow_cat", "return_cat", "acc_setting", "main_menu"]
+        page = pages[opt - 1]
+        Lib.switch_page(page)
 
     def display(log_msg):
         print("Menu")
@@ -28,5 +43,5 @@ class Menu:
         print("3 Account Settings")
         print("4 Back to Main")
         print(log_msg)
-        return int(input("Input: "))
+        return input("Input: ")
         

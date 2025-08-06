@@ -5,20 +5,27 @@ from mysql.connector import Error
 class ChangeUser:
     def run():
         inp = ("",)
-        log_msg = ""
+        log_msg = " "
 
-        while inp[0] != "-1":
+        while log_msg[0] != 'S':
             os.system('cls')
+            inp = ChangeUser.display(log_msg)
 
-            try:
-                inp = ChangeUser.display(log_msg)
-                ChangeUser.__change_user(inp)
-            except IntegrityError:
-                log_msg = "Username already exist"
-            except MisMatchError as m:
-                log_msg = m.root("Password")
-            else:
+            if inp[0] == "-1":
                 break
+            
+            log_msg = ChangeUser.logic(inp)
+        return
+
+    def logic(inp):
+        log_msg = "Successfully changed username"
+        try:
+            ChangeUser.__change_user(inp)
+        except IntegrityError:
+            log_msg = "Username already exist"
+        except MisMatchError as m:
+            log_msg = m.root("Password")
+        return log_msg
 
     def display(log_msg):
         print("Changing Username")

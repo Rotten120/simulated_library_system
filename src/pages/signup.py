@@ -3,24 +3,25 @@ from mysql.connector.errors import IntegrityError
 
 class Signup:
     def run():
-        log_msg = ""
-        signup_done = False
+        log_msg = " "
 
-        while not signup_done:
+        while log_msg[0] != 'S':
             os.system('cls')
             log = Signup.display(log_msg)
 
             if log[0] == "-1":
                 break
+            
+            log_msg = Signup.logic(log)
+        return
 
-            try:
-                Lib.set("<signup>", log)
-            except IntegrityError:
-                log_msg = "Username already exists"
-            else:
-                signup_done = True
-                
-        Lib.switch_page("main_menu")
+    def logic(log):
+        log_msg = "Successfully signuped"
+        try:
+            Lib.set("<signup>", log)
+        except IntegrityError:
+            log_msg = "Username already exists"
+        return log_msg
 
     def display(log_msg):
         print("Signup")

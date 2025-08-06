@@ -4,25 +4,40 @@ from pages.acc_alter import *
 
 class AccSetting:
     def run():
-        choose = 0
         log_msg = ""
 
-        while choose != -1:
+        while True:
             os.system('cls')
             account = AccSetting.__get_acc_details()
 
-            try:
-                choose = AccSetting.display(log_msg, account)
-                filt.val_in_range(choose, 1, 3)
-            except ValueError:
-                log_msg = "Invalid Input"
-            except OptionError as o:
-                log_msg = o;
-            else:
-                opts = [ChangeUser, ChangePass, ChangePriv]
-                opts[choose - 1].run()
-                    
-        Lib.switch_page("menu")
+            inp = AccSetting.display(log_msg, account)
+            out = AccSetting.filter(inp)
+
+            log_msg = out[0]
+            opt = out[1]
+
+            if opt == 4:
+                break
+            if opt != -1:
+                AccSetting.logic(opt)
+        return
+
+    def filter(inp):        
+        try:
+            opt = int(inp)
+            filt.val_in_range(opt, 1, 4)
+        except ValueError:
+            log_msg = "Invalid Input"
+        except OptionError as o:
+            log_msg = o
+        else:
+            return ("", opt)
+        return (log_msg, -1)
+
+    def logic(inp):            
+        sub_pages = [ChangeUser, ChangePass, ChangePriv]
+        sub_page = sub_pages[inp - 1]
+        sub_page.run()
 
     def display(log_msg, account):
         layout = "{:<6} {:<15} {:<15} {:<10}"
@@ -38,7 +53,8 @@ class AccSetting:
         print("1 Change username")
         print("2 Change password")
         print("3 Change privilege")
-        return int(input("Input: "))
+        print("4 Back to menu")
+        return input("Input: ")
         
     def __get_acc_details():
         procedure = "getAccDetails"
