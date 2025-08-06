@@ -9,3 +9,5 @@ build/main.spec
 build/build/
 
 src/ROOT.py
+
+main.exe
