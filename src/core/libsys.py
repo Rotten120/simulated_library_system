@@ -32,7 +32,7 @@ class LibSys:
             LibSys.__cursor.execute(query, params)
             return LibSys.__cursor.fetchall()
         except mysql.connector.Error as e:
-            LibSys.throw(e)
+            LibErrors.throw(e)
 
     def set(key, params = None):
         try:
@@ -40,7 +40,7 @@ class LibSys:
             LibSys.__cursor.execute(query, params)
             LibSys.__conn.commit()
         except mysql.connector.Error as e:
-            LibSys.throw(e)
+            LibErrors.throw(e)
 
     def switch_page(key):
         LibSys.__pages[key].run()
