@@ -24,7 +24,9 @@ class Login:
             log_msg = v.root("Username")
         except MisMatchError as m:
             log_msg = m.root("Password")
-        return (log_msg, Lib.logged)
+        else:
+            return (log_msg, Lib.logged)
+        return (log_msg, 0)
 
     def display(log_msg):
         print("Login")

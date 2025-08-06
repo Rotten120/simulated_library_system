@@ -6,20 +6,19 @@ class ReturnCatalog:
         tid = 0
         log_msg = ""
 
-        while tid != -1:
+        while True:
             os.system('cls')
             transacts = ReturnCatalog.__get_acc_transacts()
             inp = ReturnCatalog.display(log_msg, transacts)
-            out = ReturnCatalog.logic(inp)
 
+            if inp == "-1":
+                break
+
+            out = ReturnCatalog.logic(inp)
             log_msg = out[0]
-            tid = out[1]
         return
 
     def logic(inp):
-        if inp == "-1":
-            return ("Leaving page...", -1)
-        
         log_msg = "Catalog Returned!"
         try:
             tid = int(inp)
@@ -28,10 +27,11 @@ class ReturnCatalog:
             ReturnCatalog.transact_exists()
         except ValueError:
             log_msg = "Invalid Input"
-            tid = 0
         except ValueNotFoundError as v:
             log_msg = v.root("Transaction ID")
-        return (log_msg, tid)
+        else:
+            return (log_msg, tid)
+        return (log_msg, 0)
 
     def display(log_msg, transacts):
         layout = "{:<6} {:<20} {:<15} {:<6} {:<19} {:<19} {:<6} {:<4}"
