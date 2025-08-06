@@ -12,7 +12,8 @@ class Login:
             if log[0] == "-1":
                 break
             
-            log_msg = Login.logic(log)
+            out = Login.logic(log)
+            log_msg = out[0]
         Lib.switch_page("menu")
 
     def logic(log):
@@ -23,7 +24,7 @@ class Login:
             log_msg = v.root("Username")
         except MisMatchError as m:
             log_msg = m.root("Password")
-        return log_msg
+        return (log_msg, Lib.logged)
 
     def display(log_msg):
         print("Login")

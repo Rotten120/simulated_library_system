@@ -12,16 +12,19 @@ class Signup:
             if log[0] == "-1":
                 break
             
-            log_msg = Signup.logic(log)
+            out = Signup.logic(log)
+            log_msg = out[0]
         return
 
     def logic(log):
         log_msg = "Successfully signuped"
+        lib_log = -1
         try:
             Lib.set("<signup>", log)
+            lib_log = Lib.get("<login>", log)
         except IntegrityError:
             log_msg = "Username already exists"
-        return log_msg
+        return (log_msg, lib_log)
 
     def display(log_msg):
         print("Signup")
