@@ -6,8 +6,8 @@ from pages import *
 # executing in your own device
 import ROOT
 
-if __name__ == "__main__":
-    pages = {
+def get_pages():
+    return {
         "main_menu": MainMenu,
         "login": Login,
         "signup": Signup,
@@ -17,6 +17,7 @@ if __name__ == "__main__":
         "acc_setting": AccSetting
     }
 
+def libsys_init(pages = {}):
     LibSys.init(
         "localhost",
         ROOT.user,      # replace with your superuser
@@ -25,5 +26,11 @@ if __name__ == "__main__":
         pages
     )
 
+def main():
+    pages = get_pages()
+    libsys_init(pages)
     LibSys.switch_page("main_menu")
+
+if __name__ == "__main__":
+    main()
     
