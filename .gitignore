@@ -6,6 +6,6 @@ doc/FINAL_DEMO.mp4
 src/core/test.py
 
 build/main.spec
-build/main
+build/build/
 
-ROOT.py
+src/ROOT.py
