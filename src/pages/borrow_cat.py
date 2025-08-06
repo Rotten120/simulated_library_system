@@ -39,8 +39,8 @@ class BorrowCatalog:
         return (log_msg, 0)
 
     def display(log_msg, catalogs):
-        layout = "{:<6} {:<20} {:<15} {:<13} {:<20} {:<10} {:<6} {:<20}"
-        header = ["ID", "TITLE", "AUTHOR", "RELEASED YEAR", "GENRE", "MEDIA", "STOCKS", "REFERENCES"]
+        layout = "{:<6} {:<20} {:<15} {:<6}"
+        header = ["ID", "TITLE", "AUTHOR", "COPIES"]
         print(layout.format(*header), end = "\n\n")
 
         for catalog in catalogs:
