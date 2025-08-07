@@ -1,0 +1,77 @@
+from pages.page import *
+from utils.filter_value import FilterValue as filt
+
+class CatDetails:
+    def run(cid = 0):
+        log_msg = ""
+
+        while True:
+            os.system('cls')
+            catalog = CatDetails.__get_cat_details(cid)
+            inp = CatDetails.display(log_msg, catalog)
+            out = CatDetails.filter(inp)
+
+            log_msg = out[0]
+            opt = out[1]
+
+            if opt == 2:
+                break
+            if opt != -1:
+                out = CatDetails.logic(opt, cid)
+                log_msg = out[0]
+
+    def filter(inp):
+        try:
+            opt = int(inp)
+            filt.val_in_range(opt, 1, 2)
+        except ValueError:
+            log_msg = "Invalid Input"
+        except OptionError as o:
+            log_msg = o
+        else:
+            return ("", opt)
+        return (log_msg, -1)
+
+    def logic(opt, cid):
+        if opt == 1:
+            return CatDetails.borrow(cid)
+
+    def borrow(cid):
+        log_msg = "Successfully Borrowed!"
+        try:
+            params = (Lib.logged, cid)
+            Lib.set("<borrow_cat>", params)
+        except StockError as s:
+            log_msg = s
+        except BorrowError as b:
+            log_msg = b
+        else:
+            tid = Lib.get("<recent_tid>", params)
+            return (log_msg, tid)
+        return (log_msg, 0) 
+        
+
+    def display(log_msg, catalog):
+        layout = "{:<6} {:<20} {:<15} {:<13} {:<20} {:<10} {:<6} {:<20}"
+        header = ["ID", "TITLE", "AUTHOR", "RELEASED YEAR", "GENRE", "MEDIA", "STOCKS", "REFERENCES"]
+        print(layout.format(*header), end = "\n\n")
+
+        print(layout.format(*list(catalog)), end = "\n\n\n")
+        print(log_msg, end = "\n\n")
+
+        print("1 Borrow Catalog")
+        print("2 Return")
+
+        return input("Input: ")
+
+    def __get_cat_details(cid):
+        procedure = "getCatDetails"
+        param = [cid]
+
+        Lib.cursor().callproc(procedure, param)
+        results = Lib.cursor().stored_results()
+
+        catalog = next(results, None).fetchall()
+        return catalog[0]
+
+        

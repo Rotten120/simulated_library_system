@@ -1,10 +1,10 @@
 from pages.page import *
+from pages.cat_details import CatDetails
 from mysql.connector.errors import IntegrityError
 from mysql.connector import Error
 
 class BorrowCatalog:
     def run():
-        tid = 0
         log_msg = ""
 
         while True:
@@ -15,28 +15,21 @@ class BorrowCatalog:
             if inp == "-1":
                 break
             
-            out = BorrowCatalog.logic(inp)
-            log_msg = out[0]
+            log_msg = BorrowCatalog.logic(inp)
         return
 
     def logic(inp):
-        log_msg = "Catalog Borrowed!"
+        log_msg = "Catalog opened"
         try:
             cid = int(inp)
-            params = (Lib.logged, cid)
-            Lib.set("<borrow_cat>", params)
-            tid = Lib.get("<recent_tid>", params)[0][0]
+            BorrowCatalog.__catalog_exists(cid)
         except ValueError:
             log_msg = "Invalid Input"
-        except IntegrityError:
+        except ValueNotFoundError:
             log_msg = "Catalog does not exist"
-        except StockError as s:
-            log_msg = s
-        except BorrowError as b:
-            log_msg = b
         else:
-            return (log_msg, tid)
-        return (log_msg, 0)
+            CatDetails.run(cid)
+        return log_msg
 
     def display(log_msg, catalogs):
         layout = "{:<6} {:<20} {:<15} {:<6}"
@@ -48,3 +41,8 @@ class BorrowCatalog:
         print()
         print(log_msg, end = "\n\n")
         return input("Input: ")
+
+    def __catalog_exists(cid):
+        cid_exists = Lib.get("<cat_exists>", (cid,))
+        if not cid_exists:
+            raise ValueNotFoundError
