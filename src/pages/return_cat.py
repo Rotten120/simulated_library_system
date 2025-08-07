@@ -8,7 +8,7 @@ class ReturnCatalog:
 
         while True:
             os.system('cls')
-            transacts = ReturnCatalog.__get_acc_transacts()
+            transacts = Lib.get("<get_transact>", (Lib.logged,))
             inp = ReturnCatalog.display(log_msg, transacts)
 
             if inp == "-1":
@@ -34,7 +34,7 @@ class ReturnCatalog:
         return (log_msg, 0)
 
     def display(log_msg, transacts):
-        layout = "{:<6} {:<20} {:<15} {:<6} {:<19} {:<19} {:<6} {:<4}"
+        layout = "{:<6} {:<15} {:<15} {:<6} {:<19} {:<19} {:<6} {:<4}"
         header = ["ID", "TITLE", "AUTHOR", "COPIES", "BORROWED DATE", "DUE DATE", "STATUS", "FINE"]
         print(layout.format(*header), end = "\n\n")
 
@@ -54,13 +54,3 @@ class ReturnCatalog:
         li_transact[4] = DateTime.print_date_time(li_transact[4])
         li_transact[5] = DateTime.print_date_time(li_transact[5])
         return li_transact
-
-    def __get_acc_transacts():
-        procedure = "getAccTransact"
-        param = [Lib.logged]
-        
-        Lib.cursor().callproc(procedure, param)
-        results = Lib.cursor().stored_results()
-
-        transacts = next(results, None).fetchall()
-        return transacts

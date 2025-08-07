@@ -7,7 +7,7 @@ class CatDetails:
 
         while True:
             os.system('cls')
-            catalog = CatDetails.__get_cat_details(cid)
+            catalog = Lib.get("<get_catalog>", (cid,))
             inp = CatDetails.display(log_msg, catalog)
             out = CatDetails.filter(inp)
 
@@ -48,8 +48,7 @@ class CatDetails:
         else:
             tid = Lib.get("<recent_tid>", params)
             return (log_msg, tid)
-        return (log_msg, 0) 
-        
+        return (log_msg, 0)       
 
     def display(log_msg, catalog):
         layout = "{:<6} {:<20} {:<15} {:<13} {:<20} {:<10} {:<6} {:<20}"
@@ -63,15 +62,4 @@ class CatDetails:
         print("2 Return")
 
         return input("Input: ")
-
-    def __get_cat_details(cid):
-        procedure = "getCatDetails"
-        param = [cid]
-
-        Lib.cursor().callproc(procedure, param)
-        results = Lib.cursor().stored_results()
-
-        catalog = next(results, None).fetchall()
-        return catalog[0]
-
         

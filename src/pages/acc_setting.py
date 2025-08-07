@@ -8,7 +8,7 @@ class AccSetting:
 
         while True:
             os.system('cls')
-            account = AccSetting.__get_acc_details()
+            account = Lib.get("<get_account>", (Lib.logged,))
 
             inp = AccSetting.display(log_msg, account)
             out = AccSetting.filter(inp)
@@ -55,13 +55,3 @@ class AccSetting:
         print("3 Change privilege")
         print("4 Back to menu")
         return input("Input: ")
-        
-    def __get_acc_details():
-        procedure = "getAccDetails"
-        param = [Lib.logged]
-        
-        Lib.cursor().callproc(procedure, param)
-        results = Lib.cursor().stored_results()
-
-        account = next(results, None).fetchall()
-        return account
