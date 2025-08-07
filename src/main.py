@@ -6,17 +6,6 @@ from pages import *
 # executing in your own device
 import ROOT
 
-def get_pages():
-    return {
-        "main_menu": MainMenu,
-        "login": Login,
-        "signup": Signup,
-        "menu": Menu,
-        "borrow_cat": BorrowCatalog,
-        "return_cat": ReturnCatalog,
-        "acc_setting": AccSetting
-    }
-
 def libsys_init(pages = {}):
     LibSys.init(
         "localhost",

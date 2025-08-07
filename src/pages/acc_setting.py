@@ -35,9 +35,9 @@ class AccSetting:
         return (log_msg, -1)
 
     def logic(inp):            
-        sub_pages = [ChangeUser, ChangePass, ChangePriv]
+        sub_pages = ["change_user", "change_pass", "change_priv"]
         sub_page = sub_pages[inp - 1]
-        sub_page.run()
+        Lib.switch_age(sub_page)
 
     def display(log_msg, account):
         layout = "{:<6} {:<15} {:<15} {:<10}"
