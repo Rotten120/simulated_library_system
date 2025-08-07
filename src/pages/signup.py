@@ -19,8 +19,8 @@ class Signup:
     def logic(log):
         log_msg = "Successfully signuped"
         try:
-            Lib.set("<signup>", log)
-            lib_log = Lib.get("<login>", log)
+            Lib.set("<create_account>", log)
+            lib_log = Lib.get("<get_account_id>", log)
         except IntegrityError:
             log_msg = "Username already exists"
         else:

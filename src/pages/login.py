@@ -19,7 +19,7 @@ class Login:
     def logic(log):
         log_msg = "Successfully logged as " + log[0]
         try:
-            Lib.logged = Lib.get("<login>", log)[0][0]
+            Lib.logged = Lib.get("<get_account_id>", log)[0][0]
         except ValueNotFoundError as v:
             log_msg = v.root("Username")
         except MisMatchError as m:

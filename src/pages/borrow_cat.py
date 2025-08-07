@@ -9,7 +9,7 @@ class BorrowCatalog:
 
         while True:
             os.system('cls')
-            catalogs = Lib.get("<display_cat>")
+            catalogs = Lib.get("<display_cat_menu>")
             inp = BorrowCatalog.display(log_msg, catalogs)
 
             if inp == "-1":
@@ -43,6 +43,6 @@ class BorrowCatalog:
         return input("Input: ")
 
     def __catalog_exists(cid):
-        cid_exists = Lib.get("<cat_exists>", (cid,))
+        cid_exists = Lib.get("<do_cat_exist>", (cid,))
         if not cid_exists:
             raise ValueNotFoundError
