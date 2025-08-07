@@ -7,7 +7,7 @@ class CatDetails:
 
         while True:
             os.system('cls')
-            catalog = Lib.get("<get_catalog>", (cid,))
+            catalog = Lib.get("<get_catalog>", (cid,))[0]
             inp = CatDetails.display(log_msg, catalog)
             out = CatDetails.filter(inp)
 
@@ -41,12 +41,12 @@ class CatDetails:
         try:
             params = (Lib.logged, cid)
             Lib.set("<borrow_cat>", params)
+            tid = Lib.get("<recent_tid>", params)
         except StockError as s:
             log_msg = s
         except BorrowError as b:
             log_msg = b
         else:
-            tid = Lib.get("<recent_tid>", params)
             return (log_msg, tid)
         return (log_msg, 0)       
 

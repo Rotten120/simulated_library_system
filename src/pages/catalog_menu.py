@@ -1,4 +1,5 @@
 from pages.page import *
+from pages.cat_details import CatDetails
 from mysql.connector.errors import IntegrityError
 from mysql.connector import Error
 
@@ -18,7 +19,7 @@ class CatalogMenu:
         return
 
     def logic(inp):
-        log_msg = "Catalog opened"
+        log_msg = ""
         try:
             cid = int(inp)
             CatalogMenu.__catalog_exists(cid)

@@ -15,7 +15,7 @@ def get_pages():
         "login": Login,
         "signup": Signup,
         "menu": Menu,
-        "borrow_cat": CatalogMenu,
+        "catalog_menu": CatalogMenu,
         "return_cat": ReturnCatalog,
         "acc_setting": AccSetting,
         "cat_details": CatDetails
