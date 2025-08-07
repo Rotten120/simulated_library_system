@@ -32,13 +32,13 @@ class Menu:
         return (log_msg, -1)
 
     def logic(opt):
-        pages = ["borrow_cat", "return_cat", "acc_setting", "main_menu"]
+        pages = ["catalog_menu", "return_cat", "acc_setting", "main_menu"]
         page = pages[opt - 1]
         Lib.switch_page(page)
 
     def display(log_msg):
         print("Menu")
-        print("1 Borrow Catalogs")
+        print("1 Browse Catalogs")
         print("2 Return Catalogs")
         print("3 Account Settings")
         print("4 Back to Main")

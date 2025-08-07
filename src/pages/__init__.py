@@ -2,7 +2,7 @@ from .main_menu import MainMenu
 from .login import Login
 from .signup import Signup
 from .menu import Menu
-from .borrow_cat import BorrowCatalog
+from .catalog_menu import CatalogMenu
 from .cat_details import CatDetails
 from .return_cat import ReturnCatalog
 from .acc_setting import AccSetting
@@ -15,7 +15,7 @@ def get_pages():
         "login": Login,
         "signup": Signup,
         "menu": Menu,
-        "borrow_cat": BorrowCatalog,
+        "borrow_cat": CatalogMenu,
         "return_cat": ReturnCatalog,
         "acc_setting": AccSetting,
         "cat_details": CatDetails

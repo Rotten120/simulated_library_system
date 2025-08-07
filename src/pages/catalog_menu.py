@@ -1,28 +1,27 @@
 from pages.page import *
-from pages.cat_details import CatDetails
 from mysql.connector.errors import IntegrityError
 from mysql.connector import Error
 
-class BorrowCatalog:
+class CatalogMenu:
     def run():
         log_msg = ""
 
         while True:
             os.system('cls')
             catalogs = Lib.get("<display_cat_menu>")
-            inp = BorrowCatalog.display(log_msg, catalogs)
+            inp = CatalogMenu.display(log_msg, catalogs)
 
             if inp == "-1":
                 break
             
-            log_msg = BorrowCatalog.logic(inp)
+            log_msg = CatalogMenu.logic(inp)
         return
 
     def logic(inp):
         log_msg = "Catalog opened"
         try:
             cid = int(inp)
-            BorrowCatalog.__catalog_exists(cid)
+            CatalogMenu.__catalog_exists(cid)
         except ValueError:
             log_msg = "Invalid Input"
         except ValueNotFoundError:
