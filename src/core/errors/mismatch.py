@@ -1,4 +1,6 @@
-class MisMatchError(Exception):
+from core.lib_sys_error import LibSysError
+
+class MisMatchError(LibSysError):
     def __init__(self, msg = "Value is incorrect"):
         super().__init__(msg)
 
