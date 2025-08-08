@@ -17,7 +17,7 @@ BEGIN
 		SIGNAL SQLSTATE '45000'
         SET
 			MESSAGE_TEXT = 'Exceed allowed borrow count',
-            MYSQL_ERRNO = 50006;
+            MYSQL_ERRNO = 50008;
 	END IF;
 END
 // DELIMITER ;

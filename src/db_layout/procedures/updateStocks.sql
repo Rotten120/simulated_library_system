@@ -17,7 +17,7 @@ BEGIN
 		SIGNAL SQLSTATE '45000'
         SET
 			MESSAGE_TEXT = 'You are borrowing more stocks than what is available',
-            MYSQL_ERRNO = 50005;
+            MYSQL_ERRNO = 50007;
     END IF;
     
     -- IF SO, THEN UPDATE THE CATALOG STOCKS

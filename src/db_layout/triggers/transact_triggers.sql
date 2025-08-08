@@ -23,7 +23,7 @@ BEGIN
 		SIGNAL SQLSTATE '45000'
 		SET
 			MESSAGE_TEXT = 'Invalid value to borrow',
-            MYSQL_ERRNO = 50003;
+            MYSQL_ERRNO = 50010;
     END IF;
 
 	CALL checkMaxBorrows(NEW.accountID, NEW.borrowStocks);
@@ -38,14 +38,14 @@ BEGIN
 		SIGNAL SQLSTATE '45000'
 		SET
 			MESSAGE_TEXT = 'Invalid value to borrow',
-            MYSQL_ERRNO = 50003;
+            MYSQL_ERRNO = 50010;
 	END IF;
     
     IF NEW.catalogID <> OLD.catalogID THEN
 		SIGNAL SQLSTATE '45000'
         SET
 			MESSAGE_TEXT = 'CatalogID cannot be changed',
-            MYSQL_ERRNO = 50004;
+            MYSQL_ERRNO = 50011;
 	ELSE
 		CALL updateStocks(OLD.catalogID, OLD.borrowStocks - NEW.borrowStocks);
 	END IF;

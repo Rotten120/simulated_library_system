@@ -11,7 +11,7 @@ BEGIN
 		SIGNAL SQLSTATE '45000'
         SET
 			MESSAGE_TEXT = 'Incorrect Password',
-            MYSQL_ERRNO = 50002;
+            MYSQL_ERRNO = 50006;
     END IF;
 END
 // DELIMITER ;
