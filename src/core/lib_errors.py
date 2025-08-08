@@ -29,5 +29,5 @@ class LibErrors:
             raise error
 
     def exceptions(errno, param = None):
-        exc_class = Lib.Errors.errnos[errno]
+        exc_class = LibErrors.errnos[errno]
         raise exc_class(param) if param else exc_class()

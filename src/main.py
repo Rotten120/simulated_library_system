@@ -15,10 +15,10 @@ def libsys_init(pages = {}):
         pages
     )
 
-def main():
+def main(starting_page = "main_menu"):
     pages = get_pages()
     libsys_init(pages)
-    LibSys.switch_page("main_menu")
+    LibSys.switch_page(starting_page)
 
 if __name__ == "__main__":
     main()

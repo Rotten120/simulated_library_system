@@ -43,6 +43,6 @@ class CatalogMenu:
         return input("Input: ")
 
     def __catalog_exists(cid):
-        cid_exists = Lib.get("<do_cat_exist>", (cid,))
+        cid_exists = Lib.get("<do_cat_exist>", (cid,))[0][0]
         if not cid_exists:
             raise CatalogNotFoundError
