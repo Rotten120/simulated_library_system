@@ -1,5 +1,5 @@
 import mysql.connector
-from core.error_codes import LibErrors
+from core.lib_errors import LibErrors
 from core.queries import Queries
 
 class LibSys:
