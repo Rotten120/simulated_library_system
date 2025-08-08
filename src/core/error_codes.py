@@ -1,34 +1,16 @@
-from core.errors import *
+from enum import IntEnum
 
-class LibErrors:
-    errnos = {
-        50001: ValueNotFoundError,
-        50002: UsernameNotFoundError,
-        50003: CatalogNotFoundError,
-        50004: TransactNotFoundError,
+class ErrorCodes(IntEnum):
+    VALUE_NOT_FOUND = 50001
+    USERNAME_NOT_FOUND = 50002
+    CATALOG_NOT_FOUND = 50003
+    TRANSACT_NOT_FOUND = 50004
 
-        50005: MisMatchError,
-        50006: IncorrectPasswordError,
+    MISMATCH = 50005
+    INCORRECT_PASSWORD = 50006
 
-        50007: StockInsufficientError,
-        50008: BorrowExceededError,
+    STOCK_INSUFFICIENT = 50007
+    BORROW_EXCEEDED = 50008
 
-        50009: OptionError
-
-        #50010: INVALID VALUE TO BORROW
-        #50011: CATALOGID CANNOT BE CHANGED
-    }
-
-    def throw(error):
-        #USER EXCEPTIONS
-        if error.errno in LibErrors.errnos:
-            LibErrors.exceptions(error.errno)
-        #BUILT-IN MYSQL EXCEPTIONS
-        else:
-            raise error
-
-    def exceptions(errno, param = None):
-        if param != None:
-            raise LibErrors.errnos[errno](param)
-        else:
-            raise LibErrors.errnos[errno]
+    OPTION_ERROR = 50009
+    
