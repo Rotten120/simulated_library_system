@@ -4,3 +4,10 @@ DEPENDENCIES USED
 
 TO INSTALL THESE DEPENDENCIES
 RUN TOOLS/INSTALL_DEP.bat
+
+OR 
+
+EXECUTE THIS CMD
+```
+pip install -r dependencies.txt
+```

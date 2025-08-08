@@ -10,6 +10,8 @@ src/core/test.py
 build/main.spec
 build/build/
 
-src/ROOT.py
-
 main.exe
+
+# ENV FILE FOR LOCALHOST'S SUPERUSER 
+# LOGIN CREDENTIALS
+src/ROOT.py
