@@ -1,0 +1,7 @@
+class MisMatchError(Exception):
+    def __init__(self, msg = "Value is incorrect"):
+        super().__init__(msg)
+
+class IncorectPasswordError(MisMatchError):
+    def __init__(self, msg = "Password is incorrect"):            
+        super().__init__(msg)
