@@ -26,8 +26,8 @@ class CatDetails:
             filt.val_in_range(opt, 1, 2)
         except ValueError:
             log_msg = "Invalid Input"
-        except OptionError as o:
-            log_msg = o
+        except LibSysError as l:
+            log_msg = l
         else:
             return ("", opt)
         return (log_msg, -1)
@@ -42,10 +42,8 @@ class CatDetails:
             params = (Lib.logged, cid)
             Lib.set("<borrow_cat>", params)
             tid = Lib.get("<recent_tid>", params)
-        except StockError as s:
-            log_msg = s
-        except BorrowError as b:
-            log_msg = b
+        except LibSysError as l:
+            log_msg = l
         else:
             return (log_msg, tid)
         return (log_msg, 0)       

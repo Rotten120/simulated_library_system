@@ -25,8 +25,8 @@ class CatalogMenu:
             CatalogMenu.__catalog_exists(cid)
         except ValueError:
             log_msg = "Invalid Input"
-        except ValueNotFoundError:
-            log_msg = "Catalog does not exist"
+        except LibSysError as l:
+            log_msg = l
         else:
             CatDetails.run(cid)
         return log_msg
@@ -45,4 +45,4 @@ class CatalogMenu:
     def __catalog_exists(cid):
         cid_exists = Lib.get("<do_cat_exist>", (cid,))
         if not cid_exists:
-            raise ValueNotFoundError
+            raise CatalogNotFoundError

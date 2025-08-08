@@ -20,8 +20,8 @@ class ChangePass:
         log_msg = "Successfully changed password"
         try:
             ChangePass.__change_pass(inp)
-        except MisMatchError as m:
-            log_msg = m.root("Password")
+        except LibSysError as l:
+            log_msg = l
         return log_msg
 
     def display(log_msg):

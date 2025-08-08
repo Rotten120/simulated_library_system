@@ -20,10 +20,8 @@ class Login:
         log_msg = "Successfully logged as " + log[0]
         try:
             Lib.logged = Lib.get("<get_account_id>", log)[0][0]
-        except ValueNotFoundError as v:
-            log_msg = v.root("Username")
-        except MisMatchError as m:
-            log_msg = m.root("Password")
+        except LibSysError as l:
+            log_msg = l
         else:
             return (log_msg, Lib.logged)
         return (log_msg, 0)

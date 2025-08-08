@@ -28,8 +28,8 @@ class AccSetting:
             filt.val_in_range(opt, 1, 4)
         except ValueError:
             log_msg = "Invalid Input"
-        except OptionError as o:
-            log_msg = o
+        except LibSysError as l:
+            log_msg = l
         else:
             return ("", opt)
         return (log_msg, -1)

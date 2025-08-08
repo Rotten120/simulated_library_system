@@ -25,10 +25,8 @@ class ChangePriv:
             ChangePriv.__change_priv(param)
         except ValueError:
             log_msg = "Invalid Input"
-        except OptionErorr as o:
-            log_msg = o
-        except MisMatchError as m:
-            log_msg = m.root("Password")
+        except LibSysError as l:
+            log_msg = l
         return log_msg
 
     def display(log_msg):

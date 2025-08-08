@@ -23,8 +23,8 @@ class ChangeUser:
             ChangeUser.__change_user(inp)
         except IntegrityError:
             log_msg = "Username already exist"
-        except MisMatchError as m:
-            log_msg = m.root("Password")
+        except LibSysError as l:
+            log_msg = l
         return log_msg
 
     def display(log_msg):
