@@ -20,7 +20,7 @@ class Signup:
         log_msg = "Successfully signuped"
         try:
             Lib.set("<create_account>", log)
-            lib_log = Lib.get("<get_account_id>", log)
+            lib_log = Lib.get("<get_account_id>", (log[0], log[1]))
         except IntegrityError:
             log_msg = "Username already exists"
         else:
