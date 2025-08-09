@@ -14,10 +14,12 @@ class LibErrors:
         err.STOCK_INSUFFICIENT: StockInsufficientError,
         err.BORROW_EXCEEDED:    BorrowExceededError,
 
-        err.OPTION_ERROR:       OptionError
+        err.OPTION_ERROR:       OptionError,
 
-        #50010: INVALID VALUE TO BORROW
+        #50010 INVALID VALUE TO BORROW
         #50011: CATALOGID CANNOT BE CHANGED
+
+        err.UNRETURNED_CATALOG: UnreturnedCatalogError
     }
 
     def throw(error):

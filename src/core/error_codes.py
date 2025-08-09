@@ -13,4 +13,6 @@ class ErrorCodes(IntEnum):
     BORROW_EXCEEDED = 50008
 
     OPTION_ERROR = 50009
+
+    UNRETURNED_CATALOG = 500012
     
