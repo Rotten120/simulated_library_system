@@ -16,7 +16,7 @@ class AccSetting:
             log_msg = out[0]
             opt = out[1]
 
-            if opt == 4:
+            if opt == 5:
                 break
             if opt != -1:
                 AccSetting.logic(opt)
@@ -25,7 +25,7 @@ class AccSetting:
     def filter(inp):        
         try:
             opt = int(inp)
-            filt.val_in_range(opt, 1, 4)
+            filt.val_in_range(opt, 1, 5)
         except ValueError:
             log_msg = "Invalid Input"
         except LibSysError as l:
@@ -35,9 +35,9 @@ class AccSetting:
         return (log_msg, -1)
 
     def logic(inp):            
-        sub_pages = ["change_user", "change_pass", "change_priv"]
+        sub_pages = ["change_user", "change_pass", "change_priv", "delete_acc"]
         sub_page = sub_pages[inp - 1]
-        Lib.switch_age(sub_page)
+        Lib.switch_page(sub_page)
 
     def display(log_msg, account):
         layout = "{:<6} {:<15} {:<15} {:<10}"
@@ -53,5 +53,6 @@ class AccSetting:
         print("1 Change username")
         print("2 Change password")
         print("3 Change privilege")
-        print("4 Back to menu")
+        print("4 Delete account")
+        print("5 Back to menu")
         return input("Input: ")

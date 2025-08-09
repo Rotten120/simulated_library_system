@@ -1,10 +1,12 @@
 from .change_username import ChangeUser
 from .change_password import ChangePass
 from .change_privilege import ChangePriv
+from .delete_account import DeleteAcc
 
 def get_pages():
     return {
         "change_user": ChangeUser,
         "change_pass": ChangePass,
-        "change_priv": ChangePriv
+        "change_priv": ChangePriv,
+        "delete_acc": DeleteAcc
     }
