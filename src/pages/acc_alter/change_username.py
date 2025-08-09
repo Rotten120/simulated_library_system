@@ -3,7 +3,7 @@ from mysql.connector.errors import IntegrityError
 from mysql.connector import Error
 
 class ChangeUser:
-    def run():
+    def run(args = []):
         inp = ("",)
         log_msg = " "
 

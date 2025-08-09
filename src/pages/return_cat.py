@@ -2,7 +2,7 @@ from pages.page import *
 from utils.date_time_format import DateTime
 
 class ReturnCatalog:
-    def run():
+    def run(args = []):
         tid = 0
         log_msg = ""
 

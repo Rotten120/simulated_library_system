@@ -2,7 +2,9 @@ from pages.page import *
 from utils.filter_value import FilterValue as filt
 
 class CatBorrow:
-    def run(cid, catalog):
+    def run(args = [0, None]):
+        cid = args[0]
+        catalog = args[1]
         log_msg = ""
 
         while True:

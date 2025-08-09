@@ -2,7 +2,7 @@ from pages.page import *
 from mysql.connector.errors import IntegrityError
 
 class Signup:
-    def run():
+    def run(args = []):
         log_msg = " "
 
         while log_msg[0] != 'S':

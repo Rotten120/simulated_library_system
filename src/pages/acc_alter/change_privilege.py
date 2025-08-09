@@ -3,7 +3,7 @@ from mysql.connector import Error
 from utils.filter_value import FilterValue as filt
 
 class ChangePriv:
-    def run():
+    def run(args = []):
         inp = ("",)
         log_msg = " "
 

@@ -2,7 +2,7 @@ from pages.page import *
 from mysql.connector import Error
 
 class Login:
-    def run():
+    def run(args = []):
         log_msg = ""
 
         while Lib.logged <= 0:

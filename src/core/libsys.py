@@ -42,8 +42,8 @@ class LibSys:
         except mysql.connector.Error as e:
             LibErrors.throw(e)
 
-    def switch_page(key):
-        LibSys.__pages[key].run()
+    def switch_page(key, args = []):
+        LibSys.__pages[key].run(args)
 
     
     

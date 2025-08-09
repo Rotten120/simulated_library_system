@@ -4,7 +4,7 @@ from mysql.connector.errors import IntegrityError
 from mysql.connector import Error
 
 class CatalogMenu:
-    def run():
+    def run(args = []):
         log_msg = ""
 
         while True:
@@ -28,7 +28,7 @@ class CatalogMenu:
         except LibSysError as l:
             log_msg = l
         else:
-            CatDetails.run(cid)
+            Lib.switch_page("cat_details", [cid])
         return log_msg
 
     def display(log_msg, catalogs):

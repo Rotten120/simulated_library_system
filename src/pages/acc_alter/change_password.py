@@ -2,7 +2,7 @@ from pages.page import *
 from mysql.connector import Error
 
 class ChangePass:
-    def run():
+    def run(args = []):
         inp = ("",)
         log_msg = " "
 

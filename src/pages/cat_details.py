@@ -3,7 +3,8 @@ from pages.cat_borrow import CatBorrow
 from utils.filter_value import FilterValue as filt
 
 class CatDetails:
-    def run(cid = 0):
+    def run(args = [0]):
+        cid = args[0]
         log_msg = ""
 
         while True:
@@ -34,7 +35,8 @@ class CatDetails:
 
     def logic(opt, cid, catalog):
         if opt == 1:
-            CatBorrow.run(cid, catalog)     
+            params = [cid, catalog]
+            Lib.switch_page("cat_borrow", params)
 
     def display(log_msg, catalog):
         layout = "{:<6} {:<20} {:<15} {:<13} {:<20} {:<10} {:<6} {:<20}"

@@ -3,7 +3,7 @@ from utils.filter_value import FilterValue as filt
 from pages.acc_alter import *
 
 class AccSetting:
-    def run():
+    def run(args = []):
         log_msg = ""
 
         while True:
