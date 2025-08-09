@@ -1,5 +1,28 @@
 # Changelog
 
+## v3.3 - "Account Deletion and Stocks Borrowing"
+
+### Changes
+- Users can delete their accounts by first verifying their password and accepting the confirmation
+- After account deletion, users are redirected back to `main_menu`
+- Created a page `CatBorrow` that appears when borrowing in `CatDetails` where they can input number of stocks they want to borrow
+
+### Technical Changes
+- Created new error class `UnreturnedCatalogError` to verify that users does not have transact records before account deletion
+- Created new procedure `deleteAccount`
+- Each page now accepts parameters as list, allowing pages to transfer values to another page
+- `Lib.switch_page` now has a new parameters `args`. A list that will be sent to the page as its arguments
+
+### Repository Changes
+- Updated README to be more informative
+- Created a mailmap since previous commits used the author 'Von' instead of the GitHub account
+- Created a CHANGELOG
+- Created a batch file that builds the app and runs it afterwards
+
+### Bug Fixes
+- Inputting a -1 in login will not return to `main_menu` but proceeds to `menu`, causing `Lib.logged` to have invalid value, causing technical errors
+- Some pages like pages in acc_alter/, that subscripts `log_msg` will raise a `TypeError` since during exception handling `log_msg` becomes an `ErrorClass` not a str. Fixed by typecasting the error to string before assignment to `log_msg`
+
 ---
 
 ## v3.2 - "Organizing exception handling"
