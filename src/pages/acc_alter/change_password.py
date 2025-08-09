@@ -21,7 +21,7 @@ class ChangePass:
         try:
             ChangePass.__change_pass(inp)
         except LibSysError as l:
-            log_msg = l
+            log_msg = str(l)
         return log_msg
 
     def display(log_msg):

@@ -26,7 +26,7 @@ class ChangePriv:
         except ValueError:
             log_msg = "Invalid Input"
         except LibSysError as l:
-            log_msg = l
+            log_msg = str(l)
         return log_msg
 
     def display(log_msg):
