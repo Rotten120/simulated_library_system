@@ -14,12 +14,14 @@ class Login:
             
             out = Login.logic(log)
             log_msg = out[0]
-        Lib.switch_page("menu")
+        else:
+            Lib.switch_page("menu")
 
     def logic(log):
         log_msg = "Successfully logged as " + log[0]
         try:
             Lib.logged = Lib.get("<get_account_id>", log)[0][0]
+            print(Lib.logged)
         except LibSysError as l:
             log_msg = l
         else:
