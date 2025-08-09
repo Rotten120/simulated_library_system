@@ -16,6 +16,7 @@ class Login:
             log_msg = out[0]
         else:
             Lib.switch_page("menu")
+        return
 
     def logic(log):
         log_msg = "Successfully logged as " + log[0]

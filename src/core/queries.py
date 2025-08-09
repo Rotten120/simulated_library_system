@@ -5,7 +5,7 @@ class Queries:
         
         "<display_cat_menu>": "SELECT catalogID, title, author, stocks FROM catalogs;",
         "<do_cat_exist>": "SELECT EXISTS(SELECT catalogID FROM catalogs WHERE catalogID = %s);",
-        "<borrow_cat>": "INSERT INTO transacts (accountID, catalogID) VALUES (%s, %s);",
+        "<borrow_cat>": "INSERT INTO transacts (accountID, catalogID, borrowStocks) VALUES (%s, %s, %s);",
         
         "<recent_tid>": "SELECT transactID FROM transacts WHERE accountID = %s AND catalogID = %s ORDER by borrowDate DESC LIMIT 1",
         "<return_cat>": "DELETE FROM transacts WHERE accountID = %s AND transactID = %s",

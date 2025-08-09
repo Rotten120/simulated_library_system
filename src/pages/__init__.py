@@ -4,6 +4,7 @@ from .signup import Signup
 from .menu import Menu
 from .catalog_menu import CatalogMenu
 from .cat_details import CatDetails
+from .cat_borrow import CatBorrow
 from .return_cat import ReturnCatalog
 from .acc_setting import AccSetting
 
@@ -18,5 +19,6 @@ def get_pages():
         "catalog_menu": CatalogMenu,
         "return_cat": ReturnCatalog,
         "acc_setting": AccSetting,
-        "cat_details": CatDetails
+        "cat_details": CatDetails,
+        "cat_borrow": CatBorrow
     } | acc_alter.get_pages()

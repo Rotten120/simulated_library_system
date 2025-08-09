@@ -1,4 +1,5 @@
 from pages.page import *
+from pages.cat_borrow import CatBorrow
 from utils.filter_value import FilterValue as filt
 
 class CatDetails:
@@ -17,8 +18,7 @@ class CatDetails:
             if opt == 2:
                 break
             if opt != -1:
-                out = CatDetails.logic(opt, cid)
-                log_msg = out[0]
+                CatDetails.logic(opt, cid, catalog)
 
     def filter(inp):
         try:
@@ -32,21 +32,9 @@ class CatDetails:
             return ("", opt)
         return (log_msg, -1)
 
-    def logic(opt, cid):
+    def logic(opt, cid, catalog):
         if opt == 1:
-            return CatDetails.borrow(cid)
-
-    def borrow(cid):
-        log_msg = "Successfully Borrowed!"
-        try:
-            params = (Lib.logged, cid)
-            Lib.set("<borrow_cat>", params)
-            tid = Lib.get("<recent_tid>", params)
-        except LibSysError as l:
-            log_msg = l
-        else:
-            return (log_msg, tid)
-        return (log_msg, 0)       
+            CatBorrow.run(cid, catalog)     
 
     def display(log_msg, catalog):
         layout = "{:<6} {:<20} {:<15} {:<13} {:<20} {:<10} {:<6} {:<20}"
