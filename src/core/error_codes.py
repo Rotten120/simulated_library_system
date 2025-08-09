@@ -14,5 +14,5 @@ class ErrorCodes(IntEnum):
 
     OPTION_ERROR = 50009
 
-    UNRETURNED_CATALOG = 500012
+    UNRETURNED_CATALOG = 50012
     

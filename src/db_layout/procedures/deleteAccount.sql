@@ -4,7 +4,7 @@ BEGIN
 	DECLARE borrowStocks INT;
 	
     SELECT SUM(transacts.borrowStocks) INTO borrowStocks
-    FROM transacts WHERE transacts.accountID = aid;
+    FROM transacts WHERE transacts.accountID = accountID;
     
     IF borrowStocks <> 0 THEN
 		SIGNAL SQLSTATE '45000'
