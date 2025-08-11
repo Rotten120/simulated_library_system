@@ -1,4 +1,4 @@
-from core.errors import OptionError
+from shared.core.errors import OptionError
 
 class FilterValue:
     def val_in_range(val, lo, hi):

@@ -1,4 +1,7 @@
-from core.libsys import LibSys
+import utils.import_shared as imp
+imp.port_shared()
+
+from core.libsys_gui import LibSys
 from pages import *
 
 # remove this <ROOT> and replace all of its instances

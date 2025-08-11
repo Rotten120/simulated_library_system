@@ -1,4 +1,4 @@
-from core.lib_sys_error import LibSysError
+from shared.core.lib_sys_error import LibSysError
 
 class StockInsufficientError(LibSysError):
     def __init__(self, msg = "Insufficient Stocks"):

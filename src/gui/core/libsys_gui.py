@@ -1,6 +1,8 @@
 import mysql.connector
-from core.lib_errors import LibErrors
-from core.queries import Queries
+from shared.core.lib_errors import LibErrors
+from shared.core.queries import Queries
+
+print(Queries.get("<recent_tid>"))
 
 class LibSys:
     __conn = None

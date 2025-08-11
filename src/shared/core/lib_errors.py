@@ -1,5 +1,5 @@
-from core.errors import *
-from core.error_codes import ErrorCodes as err
+from shared.core.errors import *
+from shared.core.error_codes import ErrorCodes as err
 
 class LibErrors:
     errnos = {
