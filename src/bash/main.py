@@ -1,13 +1,14 @@
-import sys
-from cmds import get_cmd_class
-from core.libsys import LibSys
+import utils.import_shared as imp
+imp.port_shared()
 
-def get_args(args):
-    return args if args != [] else sys.argv
+from cmds import get_cmd_class
+from core.libsys_bash import LibSysBash
+from utils.parser import ConfigParser
 
 if __name__ == "__main__":
-    cmd_dict = get_cmd_class()    
-    argv = get_args(["config", "-l"])
+    cmd_dict = get_cmd_class()
+    config = open("CONFIG", 'r')
+    config_parsed = ConfigParser.parse_config(config)
+    LibSysBash.init(config_parsed, cmd_dict)
+    LibSysBash.run()
 
-    cmd = argv[0]
-    cmd_li[cmd].execute(argv[1:])
