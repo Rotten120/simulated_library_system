@@ -10,41 +10,53 @@ class LibSysBash:
 
     def init(config, cmds):
         dblog = config["dblog"]
-        LibSys.__conn = mysql.connector.connect(
+        LibSysBash.__conn = mysql.connector.connect(
             host = dblog["host"],
             user = dblog["user"],
             password = dblog["pass"],
             database = dblog["db"]
         )
 
-        LibSys.__cursor = LibSys.__conn.cursor()
-        LibSys.__cmds = cmds
-        LibSys.config = config
+        LibSysBash.__cursor = LibSysBash.__conn.cursor()
+        LibSysBash.__cmds = cmds
+        LibSysBash.config = config
+
+    def run():
+        prompt = ""
+        while True:
+            prompt = input("$ ")
+            args = prompt.split()
+            cmd = args[0]
+            
+            LibSysBash.run_cmd(cmd, args[1:])
 
     def cursor():
-        return LibSys.__cursor
+        return LibSysBash.__cursor
 
     def commit():
-        LibSys.__conn.commit()
+        LibSysBash.__conn.commit()
 
     def get(key, params = None):
         try:
             query = Queries.get(key)
-            LibSys.__cursor.execute(query, params)
-            return LibSys.__cursor.fetchall()
+            LibSysBash.__cursor.execute(query, params)
+            return LibSysBash.__cursor.fetchall()
         except mysql.connector.Error as e:
             LibErrors.throw(e)
 
     def set(key, params = None):
         try:
             query = Queries.get(key)
-            LibSys.__cursor.execute(query, params)
-            LibSys.__conn.commit()
+            LibSysBash.__cursor.execute(query, params)
+            LibSysBash.__conn.commit()
         except mysql.connector.Error as e:
             LibErrors.throw(e)
 
     def run_cmd(cmd, params = []):
-        LibSys[cmd].execute(params)
+        try:
+            LibSysBash.__cmds[cmd].execute(params)
+        except KeyError:
+            print(f"lib: `{cmd}` is not a lib command. See 'lib --help'")
     
 
     
