@@ -1,11 +1,8 @@
 # HELLO :)
 
 doc/
-doc/FINAL_DEMO(SPED_UP).mp4
-doc/FINAL_DEMO.mp4
 
 **/__pycache__/
-src/core/test.py
 
 build/main.spec
 build/build/
