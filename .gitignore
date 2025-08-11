@@ -14,4 +14,4 @@ main.exe
 
 # ENV FILE FOR LOCALHOST'S SUPERUSER 
 # LOGIN CREDENTIALS
-src/ROOT.py
+src/gui/ROOT.py
