@@ -1,9 +1,9 @@
 import sys
 import os
 
-class ConfigParser:
-    def parse_config(file):
-        lines = file.readlines()
+class ConfigTranslation:
+    def parse_config(config):
+        lines = config.readlines()
         config = {}
         namespace = ""
         
@@ -25,4 +25,19 @@ class ConfigParser:
                     val = val[1:-1]
                 config[namespace][key] = val
         return config
+
+    def encode_config(config):
+        out = ""
+        
+        for namespace in config:
+            attrs = config[namespace]
+            out += f"[{namespace}]\n"
+            for key in attrs:
+                value = attrs[key]
+                out += f"{key}=\"{value}\"\n"
+            out += '\n'
+
+        return out
+            
+                
 

@@ -1,4 +1,5 @@
 import mysql.connector
+import os
 from shared.core.lib_errors import LibErrors
 from shared.core.queries import Queries
 
@@ -26,9 +27,14 @@ class LibSysBash:
         while True:
             prompt = input("$ ")
             args = prompt.split()
-            cmd = args[0]
-            
-            LibSysBash.run_cmd(cmd, args[1:])
+
+            if args[0] == "lib":
+                if args[1] == "quit":
+                    quit()
+                cmd = args[1]
+                LibSysBash.run_cmd(cmd, args[2:])
+            else:
+                os.system(prompt)
 
     def cursor():
         return LibSysBash.__cursor
