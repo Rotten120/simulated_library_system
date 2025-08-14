@@ -1,25 +1,20 @@
-import mysql.connector
 import os
 from utils.command_parser import CommandParser as CmdParse
-from shared.core.lib_errors import LibErrors
-from shared.core.queries import Queries
+from shared.core.lib_conn import LibConn
 
-class LibSysBash:
-    __conn = None
-    __cursor = None
+class LibSysBash(LibConn):
     __cmds = {}
     config = {}
 
     def init(config, cmds):
         dblog = config["dblog"]
-        LibSysBash.__conn = mysql.connector.connect(
-            host = dblog["host"],
-            user = dblog["user"],
-            password = dblog["pass"],
-            database = dblog["db"]
+        LibConn.init(
+            dblog["host"],
+            dblog["user"],
+            dblog["pass"],
+            dblog["db"]
         )
 
-        LibSysBash.__cursor = LibSysBash.__conn.cursor()
         LibSysBash.__cmds = cmds
         LibSysBash.config = config
 
@@ -27,7 +22,7 @@ class LibSysBash:
         prompt = ""
         while True:
             prompt = input("$ ")
-            args = prompt.split()
+            args = CmdParse.split(prompt)
 
             if args[0] == "lib":
                 if args[1] == "quit":
@@ -36,28 +31,6 @@ class LibSysBash:
                 LibSysBash.run_cmd(cmd, CmdParse.parse(args[2:]))
             else:
                 os.system(prompt)
-
-    def cursor():
-        return LibSysBash.__cursor
-
-    def commit():
-        LibSysBash.__conn.commit()
-
-    def get(key, params = None):
-        try:
-            query = Queries.get(key)
-            LibSysBash.__cursor.execute(query, params)
-            return LibSysBash.__cursor.fetchall()
-        except mysql.connector.Error as e:
-            LibErrors.throw(e)
-
-    def set(key, params = None):
-        try:
-            query = Queries.get(key)
-            LibSysBash.__cursor.execute(query, params)
-            LibSysBash.__conn.commit()
-        except mysql.connector.Error as e:
-            LibErrors.throw(e)
 
     def run_cmd(cmd, params = []):
         try:
