@@ -1,5 +1,6 @@
 import mysql.connector
 import os
+from utils.command_parser import CommandParser as CmdParse
 from shared.core.lib_errors import LibErrors
 from shared.core.queries import Queries
 
@@ -32,7 +33,7 @@ class LibSysBash:
                 if args[1] == "quit":
                     quit()
                 cmd = args[1]
-                LibSysBash.run_cmd(cmd, args[2:])
+                LibSysBash.run_cmd(cmd, CmdParse.parse(args[2:]))
             else:
                 os.system(prompt)
 
