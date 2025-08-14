@@ -22,22 +22,27 @@ class LibSysBash(LibConn):
         prompt = ""
         while True:
             prompt = input("$ ")
-            args = CmdParse.split(prompt)
 
-            if args[0] == "lib":
-                if args[1] == "quit":
-                    quit()
-                cmd = args[1]
-                LibSysBash.run_cmd(cmd, CmdParse.parse(args[2:]))
+            if prompt.startswith("lib "):
+                args = CmdParse.split(prompt)
+                LibSysBash.run_lib_cmd(args[1], CmdParse.parse(args[2:]))
             else:
-                os.system(prompt)
+                LibSysBash.run_os_cmd(prompt)
 
-    def run_cmd(cmd, params = []):
+    def run_lib_cmd(cmd, params = []):
+        if cmd == "disconnect":
+            quit()
+            
         try:
             LibSysBash.__cmds[cmd].execute(params)
         except KeyError:
             print(f"lib: `{cmd}` is not a lib command. See 'lib --help'")
-    
+
+    def run_os_cmd(prompt):
+        if prompt != "exit":
+            os.system(prompt)
+        else:
+            print("lib: database connection still online. Use 'lib disconnect' to terminate connection")
 
     
     
